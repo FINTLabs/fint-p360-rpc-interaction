@@ -1,8 +1,8 @@
 package no.fint.p360.rpc;
 
-import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -22,10 +22,12 @@ public class P360Service {
         return getCases(getCasesParameter).get(0);
     }
 
+    @Value("${fint.p360.rpc.authkey}")
+    private String auth;
     public List<P360Case> getCases(P360GetCasesParameter getCasesParameter) {
 
         P360GetCasesResponse response = p360Client.post()
-                .uri("CaseService/GetCases?authkey=") // TODO: Fetch authkey from config.yaml
+                .uri(String.format("CaseService/GetCases?authkey=%s", auth))
                 .bodyValue(P360GetCasesRequestBody.builder().parameter(getCasesParameter).build())
                 .retrieve().bodyToMono(P360GetCasesResponse.class).block();
 
