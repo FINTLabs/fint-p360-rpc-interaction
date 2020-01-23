@@ -2,6 +2,7 @@ package no.fint.p360.rpc;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import no.fint.model.P360Case;
 
 import java.util.List;
 
