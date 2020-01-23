@@ -1,8 +1,22 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        // this plugin
+        classpath 'org.jsonschema2pojo:jsonschema2pojo-gradle-plugin:1.0.1'
+        // add additional dependencies here if you wish to reference instead of generate them (see example directory)
+    }
+}
+
 plugins {
     id 'org.springframework.boot' version '2.2.4.RELEASE'
     id 'io.spring.dependency-management' version '1.0.9.RELEASE'
     id 'java'
 }
+
+apply plugin: 'jsonschema2pojo'
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
@@ -19,6 +33,13 @@ repositories {
 }
 
 dependencies {
+    // Required if generating JSR-303 annotations
+    compile 'javax.validation:validation-api:1.1.0.CR2'
+    // Required if generating Jackson 2 annotations
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.9.7'
+    // Required if generating JodaTime data types
+    compile 'joda-time:joda-time:2.2'
+
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
     compileOnly 'org.projectlombok:lombok'
@@ -28,6 +49,9 @@ dependencies {
     }
 }
 
-test {
-    useJUnitPlatform()
+jsonSchema2Pojo {
+    targetPackage = 'no.p360.model'
+    sourceType = 'json'
+    includeGetters = true
+    includeSetters = true
 }
