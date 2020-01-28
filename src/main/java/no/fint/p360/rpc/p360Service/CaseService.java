@@ -47,4 +47,14 @@ public class CaseService {
 
         return response.getCases();
     }
+
+    public String createCase(CreateCaseArgs createCasesArgs) {
+
+        CreateCaseResponse response = p360Client.post()
+                .uri(String.format("CaseService/CreateCase?authkey=%s", auth))
+                .bodyValue(createCasesArgs)
+                .retrieve().bodyToMono(CreateCaseResponse.class).block();
+
+        return response.getCaseNumber();
+    }
 }

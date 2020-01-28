@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
@@ -35,5 +36,11 @@ public class P360Controller {
     public ResponseEntity<List<Case>> getCases(@RequestBody GetCasesArgs getCasesArgs) {
 
         return ResponseEntity.ok().body(caseService.getCases(getCasesArgs));
+    }
+
+    @PostMapping("createcase")
+    public ResponseEntity<String> createCase(@RequestBody CreateCaseArgs createCaseArgs) {
+
+        return ResponseEntity.ok().body(caseService.createCase(createCaseArgs));
     }
 }
