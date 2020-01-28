@@ -1,4 +1,4 @@
-package no.fint.p360.rpc;
+package no.fint.p360.rpc.p360Service;
 
 import lombok.extern.slf4j.Slf4j;
 import no.p360.model.CaseService.*;
@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class P360Service {
+public class CaseService {
 
     @Autowired
     private WebClient p360Client;
