@@ -1,8 +1,7 @@
 package no.fint.p360.rpc;
 
 import lombok.extern.slf4j.Slf4j;
-import no.fint.model.GetCasesArgs;
-import no.fint.model.P360Case;
+import no.p360.model.CaseService.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -20,29 +19,22 @@ public class P360Service {
     @Value("${fint.p360.rpc.authkey}")
     private String auth;
 
-    public P360Case getCase(int systemId) {
+    public Case getCaseBySystemId(int systemId) {
 
-        P360GetCasesParameter getCasesParameter = P360GetCasesParameter.builder().recNo(systemId).build();
+        GetCasesArgs getCasesArgs = new GetCasesArgs();
+        Parameter__1 parameter = new Parameter__1();
+        parameter.setRecno(systemId);
+        getCasesArgs.setParameter(parameter);
 
-        return getCases(getCasesParameter).get(0);
+        return getCases(getCasesArgs).get(0);
     }
 
-    private List<P360Case> getCases(P360GetCasesParameter getCasesParameter) {
+    public List<Case> getCases(GetCasesArgs getCasesArgs) {
 
-        P360GetCasesResponse response = p360Client.post()
-                .uri(String.format("CaseService/GetCases?authkey=%s", auth))
-                .bodyValue(P360GetCasesRequestBody.builder().parameter(getCasesParameter).build())
-                .retrieve().bodyToMono(P360GetCasesResponse.class).block();
-
-        return response.getCases();
-    }
-
-    public List<P360Case> getCases2(GetCasesArgs getCasesArgs) {
-
-        P360GetCasesResponse response = p360Client.post()
+        GetCasesResponse response = p360Client.post()
                 .uri(String.format("CaseService/GetCases?authkey=%s", auth))
                 .bodyValue(getCasesArgs)
-                .retrieve().bodyToMono(P360GetCasesResponse.class).block();
+                .retrieve().bodyToMono(GetCasesResponse.class).block();
 
         return response.getCases();
     }
