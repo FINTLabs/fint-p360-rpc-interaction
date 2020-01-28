@@ -26,7 +26,16 @@ public class CaseService {
         parameter.setRecno(systemId);
         getCasesArgs.setParameter(parameter);
 
-        return getCases(getCasesArgs).get(0);
+        return getCase(getCasesArgs);
+    }
+
+    public Case getCase(GetCasesArgs getCasesArgs) {
+
+        List<Case> caseResult = getCases(getCasesArgs);
+
+        // TODO: Handle result is not 1 case
+
+        return caseResult.get(0);
     }
 
     public List<Case> getCases(GetCasesArgs getCasesArgs) {
