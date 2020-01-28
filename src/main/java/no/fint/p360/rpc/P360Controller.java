@@ -1,5 +1,6 @@
 package no.fint.p360.rpc;
 
+import no.fint.p360.rpc.p360Service.CaseService;
 import no.p360.model.CaseService.Case;
 import no.p360.model.CaseService.GetCasesArgs;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,17 +16,17 @@ import java.util.List;
 public class P360Controller {
 
     @Autowired
-    private P360Service p360Service;
+    private CaseService caseService;
 
     @GetMapping("sak/systemid/{systemid}")
     public ResponseEntity<Case> getSak(@PathVariable int systemid) {
 
-        return ResponseEntity.ok().body(p360Service.getCaseBySystemId(systemid));
+        return ResponseEntity.ok().body(caseService.getCaseBySystemId(systemid));
     }
 
     @GetMapping("getcases")
     public ResponseEntity<List<Case>> getCases(@RequestBody GetCasesArgs getCasesArgs) {
 
-        return ResponseEntity.ok().body(p360Service.getCases(getCasesArgs));
+        return ResponseEntity.ok().body(caseService.getCases(getCasesArgs));
     }
 }
