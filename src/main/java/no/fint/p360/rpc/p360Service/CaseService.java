@@ -2,22 +2,13 @@ package no.fint.p360.rpc.p360Service;
 
 import lombok.extern.slf4j.Slf4j;
 import no.p360.model.CaseService.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
 
 @Service
 @Slf4j
-public class CaseService {
-
-    @Autowired
-    private WebClient p360Client;
-
-    @Value("${fint.p360.rpc.authkey}")
-    private String auth;
+public class CaseService extends P360Service {
 
     public Case getCaseBySystemId(int systemId) {
 
@@ -40,20 +31,14 @@ public class CaseService {
 
     public List<Case> getCases(GetCasesArgs getCasesArgs) {
 
-        GetCasesResponse response = p360Client.post()
-                .uri(String.format("CaseService/GetCases?authkey=%s", auth))
-                .bodyValue(getCasesArgs)
-                .retrieve().bodyToMono(GetCasesResponse.class).block();
+        GetCasesResponse response = call("CaseService/GetCases", getCasesArgs, GetCasesResponse.class);
 
         return response.getCases();
     }
 
     public String createCase(CreateCaseArgs createCasesArgs) {
 
-        CreateCaseResponse response = p360Client.post()
-                .uri(String.format("CaseService/CreateCase?authkey=%s", auth))
-                .bodyValue(createCasesArgs)
-                .retrieve().bodyToMono(CreateCaseResponse.class).block();
+        CreateCaseResponse response = call("CaseService/CreateCase", createCasesArgs, CreateCaseResponse.class);
 
         return response.getCaseNumber();
     }
