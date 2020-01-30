@@ -1,5 +1,6 @@
 package no.fint.p360.rpc;
 
+import no.fint.p360.data.exception.CreateCaseException;
 import no.fint.p360.rpc.p360Service.CaseService;
 import no.p360.model.CaseService.Case;
 import no.p360.model.CaseService.CreateCaseArgs;
@@ -39,7 +40,7 @@ public class P360Controller {
     }
 
     @PostMapping("createcase")
-    public ResponseEntity<String> createCase(@RequestBody CreateCaseArgs createCaseArgs) {
+    public ResponseEntity<String> createCase(@RequestBody CreateCaseArgs createCaseArgs) throws CreateCaseException {
 
         return ResponseEntity.ok().body(caseService.createCase(createCaseArgs));
     }

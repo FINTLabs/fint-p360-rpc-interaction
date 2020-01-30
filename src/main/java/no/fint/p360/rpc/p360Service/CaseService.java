@@ -1,6 +1,7 @@
 package no.fint.p360.rpc.p360Service;
 
 import lombok.extern.slf4j.Slf4j;
+import no.fint.p360.data.exception.CreateCaseException;
 import no.p360.model.CaseService.*;
 import org.springframework.stereotype.Service;
 
@@ -36,9 +37,12 @@ public class CaseService extends P360Service {
         return response.getCases();
     }
 
-    public String createCase(CreateCaseArgs createCasesArgs) {
+    public String createCase(CreateCaseArgs createCasesArgs) throws CreateCaseException {
 
         CreateCaseResponse response = call("CaseService/CreateCase", createCasesArgs, CreateCaseResponse.class);
+
+        if(!response.getSuccessful())
+            throw new CreateCaseException(response.getErrorDetails());
 
         return response.getCaseNumber();
     }
