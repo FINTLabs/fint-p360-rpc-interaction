@@ -49,7 +49,12 @@
       "ModifiedDate": "2020-01-22T14:27:56.517Z",
       "Title": "string",
       "AccessGroup": "string",
-      "AdditionalFields": {},
+      "AdditionalFields": [
+        {
+          "Name": "string",
+          "Value": "string"
+        }
+      ],
       "AlternativeEmail": "string"
     }
   ],

@@ -42,7 +42,12 @@
       "Initials": "string",
       "DirectLine": "string",
       "AccessGroup": "string",
-      "AdditionalFields": {},
+      "AdditionalFields": [
+        {
+          "Name": "string",
+          "Value": "string"
+        }
+      ],
       "AlternativeEmail": "string"
     }
   ],

@@ -2,12 +2,16 @@ package no.fint.p360.rpc;
 
 import no.fint.p360.data.exception.CreateCaseException;
 import no.fint.p360.data.exception.GetDocumentException;
+import no.fint.p360.data.exception.PrivatePersonNotFound;
 import no.fint.p360.rpc.p360Service.CaseService;
+import no.fint.p360.rpc.p360Service.ContactService;
 import no.fint.p360.rpc.p360Service.DocumentService;
 import no.p360.model.CaseService.Case;
 import no.fint.p360.data.exception.CreateDocumentException;
 import no.p360.model.CaseService.CreateCaseArgs;
 import no.p360.model.CaseService.GetCasesArgs;
+import no.p360.model.ContactService.ContactPerson;
+import no.p360.model.ContactService.PrivatePerson;
 import no.p360.model.DocumentService.CreateDocumentArgs;
 import no.p360.model.DocumentService.Document__1;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +32,9 @@ public class P360Controller {
 
     @Autowired
     private DocumentService documentService;
+
+    @Autowired
+    private ContactService contactService;
 
     @GetMapping("sak/systemid/{systemid}")
     public ResponseEntity<Case> getSak(@PathVariable int systemid) {
@@ -62,5 +69,20 @@ public class P360Controller {
     public void createDocument(@RequestBody CreateDocumentArgs createDocumentArgs) throws CreateDocumentException {
 
         documentService.createDocument(createDocumentArgs);
+    }
+
+    @GetMapping("contact/getPrivatePersonByRecno/{recno}")
+    public ResponseEntity<PrivatePerson> getPrivatePersonByRecno(@PathVariable int recno){
+        return ResponseEntity.ok(contactService.getPrivatePersonByRecno(recno));
+    }
+
+    @GetMapping("contact/getPrivatePersonByPersonalId/{id}")
+    public ResponseEntity<PrivatePerson> getPrivatePersonByRecno(@PathVariable String id) throws PrivatePersonNotFound {
+        return ResponseEntity.ok(contactService.getPrivatePersonByPersonalIdNumber(id));
+    }
+
+    @GetMapping("contact/getContactPersonByRecno/{recno}")
+    public ResponseEntity<ContactPerson> getContactPersonByRecno(@PathVariable int recno) throws PrivatePersonNotFound {
+        return ResponseEntity.ok(contactService.getContactPersonByRecno(recno));
     }
 }
