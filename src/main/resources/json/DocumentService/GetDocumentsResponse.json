@@ -48,16 +48,82 @@
         "Domain": 0
       },
       "ResponsiblePersonName": "string",
-      "Contacts": {},
-      "Files": {},
-      "Remarks": {},
-      "ReferringCases": {},
-      "ReferringDocuments": {},
+      "Contacts": [
+        {
+          "ExternalId": "string",
+          "ReferenceNumber": "string",
+          "Role": "string",
+          "SearchName": "string",
+          "Address": "string",
+          "ContactRecno": "string",
+          "Country": "string",
+          "Email": "string",
+          "ZipCode": "string",
+          "ZipPlace": "string"
+        }
+      ],
+      "Files": [
+        {
+          "AccessCodeCode": "string",
+          "AccessCodeDescription": "string",
+          "Base64Data": "string",
+          "CategoryCode": "string",
+          "CategoryDescription": "string",
+          "CheckedOutBy": "string",
+          "DegradeCode": "string",
+          "DegradeDate": "2020-01-22T14:14:59.457Z",
+          "DisposalCode": "string",
+          "DisposalDate": "2020-01-22T14:14:59.457Z",
+          "FiledOnPaper": true,
+          "Format": "string",
+          "ModifiedBy": "string",
+          "Note": "string",
+          "PaperLocation": "string",
+          "Paragraph": "string",
+          "Recno": 0,
+          "RelationTypeCode": "string",
+          "RelationTypeDescription": "string",
+          "SignDate": "2020-01-22T14:14:59.457Z",
+          "StatusCode": "string",
+          "StatusDescription": "string",
+          "Title": "string",
+          "Type": "string",
+          "URL": "string",
+          "VersionFormatCode": "string",
+          "VersionFormatDescription": "string",
+          "LastChangedDate": "2020-01-22T14:14:59.457Z",
+          "AccessCodeRecno": "string"
+        }
+      ],
+      "Remarks": [
+        {
+          "Content": "string",
+          "CreatedBy": "string",
+          "CreatedDate": "string",
+          "ExpirationDate": "string",
+          "ModifiedBy": "string",
+          "ModifiedDate": "string",
+          "Title": "string",
+          "TypeCode": "string",
+          "TypeDescription": "string"
+        }
+      ],
+      "ReferringCases": [
+        "string"
+      ],
+      "ReferringDocuments": [
+        "string"
+      ],
       "OfficialTitle": "string",
       "CreatedDate": "string",
       "CaseRecno": "string",
       "LastChangedDate": "string",
-      "CustomFields": {},
+      "CustomFields": [
+        {
+          "Name": "string",
+          "Value": "string"
+        }
+      ],
       "DocumentRowPermissions": "string",
       "DocumentArchive": {
         "Recno": 0,
@@ -70,7 +136,12 @@
         "Description": "string"
       },
       "URL": "string",
-      "ArchiveCodes": {},
+      "ArchiveCodes": [
+        {
+          "ArciveCode": "string",
+          "ArchiveType": "string"
+        }
+      ],
       "RecordType": {
         "Recno": 0,
         "Code": "string",
