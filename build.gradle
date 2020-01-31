@@ -34,11 +34,9 @@ repositories {
 
 dependencies {
     // Required if generating JSR-303 annotations
-    compile 'javax.validation:validation-api:2.0.1.Final'
+    compile 'javax.validation:validation-api'
     // Required if generating Jackson 2 annotations
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.9.7'
-    // Required if generating JodaTime data types
-    compile 'joda-time:joda-time:2.2'
+    compile 'com.fasterxml.jackson.core:jackson-databind'
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
