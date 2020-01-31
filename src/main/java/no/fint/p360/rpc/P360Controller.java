@@ -1,13 +1,14 @@
 package no.fint.p360.rpc;
 
 import no.fint.p360.data.exception.CreateCaseException;
+import no.fint.p360.data.exception.GetDocumentException;
 import no.fint.p360.rpc.p360Service.CaseService;
+import no.fint.p360.rpc.p360Service.DocumentService;
 import no.p360.model.CaseService.Case;
 import no.fint.p360.data.exception.CreateDocumentException;
 import no.p360.model.CaseService.CreateCaseArgs;
 import no.p360.model.CaseService.GetCasesArgs;
 import no.p360.model.DocumentService.CreateDocumentArgs;
-import no.p360.model.DocumentService.CreateDocumentResponse;
 import no.p360.model.DocumentService.Document__1;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
