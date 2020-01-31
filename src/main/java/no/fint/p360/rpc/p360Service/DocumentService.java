@@ -4,15 +4,11 @@ import lombok.extern.slf4j.Slf4j;
 import no.fint.p360.data.exception.CreateDocumentException;
 import no.fint.p360.data.exception.GetDocumentException;
 import no.p360.model.DocumentService.*;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
 public class DocumentService extends P360Service{
-
-    @Value("${fint.p360.rpc.authkey}")
-    private String auth;
 
     public void createDocument(CreateDocumentArgs createDocumentArgs) throws CreateDocumentException {
         log.info("Create Document: {}", createDocumentArgs);
