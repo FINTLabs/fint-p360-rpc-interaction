@@ -36,10 +36,24 @@ public class P360Controller {
     @Autowired
     private ContactService contactService;
 
-    @GetMapping("sak/systemid/{systemid}")
-    public ResponseEntity<Case> getSak(@PathVariable int systemid) {
+    @GetMapping("case/casenumber/{year}/{number}")
+    public ResponseEntity<Case> getCaseByCaseNumber(@PathVariable String year, @PathVariable String number) {
 
-        return ResponseEntity.ok().body(caseService.getCaseBySystemId(systemid));
+        String caseNumber = year + "/" + number;
+
+        return ResponseEntity.ok().body(caseService.getCaseByCaseNumber(caseNumber));
+    }
+
+    @GetMapping("case/systemid/{systemId}")
+    public ResponseEntity<Case> getCaseBySystemId(@PathVariable String systemId) {
+
+        return ResponseEntity.ok().body(caseService.getCaseBySystemId(systemId));
+    }
+
+    @GetMapping("case/externalid/{externalId}")
+    public ResponseEntity<Case> getCaseByExternalId(@PathVariable String externalId) {
+
+        return ResponseEntity.ok().body(caseService.getCaseByExternalId(externalId));
     }
 
     @GetMapping("getcase")
