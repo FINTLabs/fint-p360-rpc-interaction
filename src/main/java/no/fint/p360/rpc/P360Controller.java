@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Map;
@@ -54,6 +55,12 @@ public class P360Controller {
     public ResponseEntity<Case> getCaseByExternalId(@PathVariable String externalId) {
 
         return ResponseEntity.ok().body(caseService.getCaseByExternalId(externalId));
+    }
+
+    @GetMapping("case/title/{title}")
+    public ResponseEntity<List<Case>> getCasesByTitle(@PathVariable String title, @RequestParam(required = false) String maxReturnedCases) {
+
+        return ResponseEntity.ok().body(caseService.getCasesByTitle(title, maxReturnedCases));
     }
 
     @GetMapping("getcase")

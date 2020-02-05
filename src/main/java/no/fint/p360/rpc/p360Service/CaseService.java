@@ -38,6 +38,17 @@ public class CaseService extends P360Service {
         return getCase(getCasesArgs);
     }
 
+    public List<Case> getCasesByTitle(String title, String maxReturnedCases) {
+
+        GetCasesArgs getCasesArgs = CreateGetCaseArgsWithParameter();
+        getCasesArgs.getParameter().setTitle(title);
+
+        if (maxReturnedCases != null)
+            getCasesArgs.getParameter().setMaxReturnedCases(Integer.parseInt(maxReturnedCases));
+
+        return getCases(getCasesArgs);
+    }
+
     public Case getCase(GetCasesArgs getCasesArgs) {
 
         List<Case> caseResult = getCases(getCasesArgs);
