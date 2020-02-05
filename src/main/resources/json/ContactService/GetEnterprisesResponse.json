@@ -2,7 +2,6 @@
   "Enterprises": [
     {
       "Recno": 0,
-      "ContactRelations": {},
       "EnterpriseNumber": "string",
       "ExternalID": "string",
       "Name": "string",
@@ -41,7 +40,12 @@
       "CreatedDate": "2020-01-22T14:28:31.893Z",
       "ModifiedDate": "2020-01-22T14:28:31.893Z",
       "AccessGroup": "string",
-      "AdditionalFields": {},
+      "AdditionalFields": [
+        {
+          "Name": "string",
+          "Value": "string"
+        }
+      ],
       "AlternativeEmail": "string"
     }
   ],

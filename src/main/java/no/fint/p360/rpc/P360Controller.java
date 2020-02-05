@@ -1,16 +1,14 @@
 package no.fint.p360.rpc;
 
-import no.fint.p360.data.exception.CreateCaseException;
-import no.fint.p360.data.exception.GetDocumentException;
-import no.fint.p360.data.exception.PrivatePersonNotFound;
+import no.fint.p360.data.exception.*;
 import no.fint.p360.rpc.p360Service.CaseService;
 import no.fint.p360.rpc.p360Service.ContactService;
 import no.fint.p360.rpc.p360Service.DocumentService;
 import no.p360.model.CaseService.Case;
-import no.fint.p360.data.exception.CreateDocumentException;
 import no.p360.model.CaseService.CreateCaseArgs;
 import no.p360.model.CaseService.GetCasesArgs;
 import no.p360.model.ContactService.ContactPerson;
+import no.p360.model.ContactService.Enterprise;
 import no.p360.model.ContactService.PrivatePerson;
 import no.p360.model.DocumentService.CreateDocumentArgs;
 import no.p360.model.DocumentService.Document__1;
@@ -23,6 +21,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Stream;
 
 @Controller
 public class P360Controller {
@@ -82,7 +82,21 @@ public class P360Controller {
     }
 
     @GetMapping("contact/getContactPersonByRecno/{recno}")
-    public ResponseEntity<ContactPerson> getContactPersonByRecno(@PathVariable int recno) throws PrivatePersonNotFound {
+    public ResponseEntity<ContactPerson> getContactPersonByRecno(@PathVariable int recno) {
         return ResponseEntity.ok(contactService.getContactPersonByRecno(recno));
+    }
+
+    @GetMapping("contact/getEnterpriseByRecno/{recno}")
+    public ResponseEntity<Enterprise> getEnterpriseByRecno(@PathVariable int recno) {
+        return ResponseEntity.ok(contactService.getEnterpriseByRecno(recno));
+    }
+
+    @GetMapping("contact/getEnterpriseByEnterpriseNumber/{enterpriseNumber}")
+    public ResponseEntity<Enterprise> getEnterpriseByEnterpriseNumber(@PathVariable String enterpriseNumber) throws EnterpriseNotFound {
+        return ResponseEntity.ok(contactService.getEnterpriseByEnterpriseNumber(enterpriseNumber));
+    }
+    @GetMapping("contact/searchEnterprise")
+    public ResponseEntity<Stream<Enterprise>> searchEnterprise(@RequestBody Map<String, String> map){
+        return ResponseEntity.ok(contactService.searchEnterprise(map));
     }
 }

@@ -1,9 +1,13 @@
 package no.fint.p360.rpc.p360Service;
 
 import lombok.extern.slf4j.Slf4j;
+import no.fint.p360.data.exception.EnterpriseNotFound;
 import no.fint.p360.data.exception.PrivatePersonNotFound;
 import no.p360.model.ContactService.*;
 import org.springframework.stereotype.Service;
+
+import java.util.Map;
+import java.util.stream.Stream;
 
 @Service
 @Slf4j
@@ -56,15 +60,68 @@ public class ContactService extends P360Service {
         }
         return null;
     }
+
+    public Enterprise getEnterpriseByRecno(int recNo) {
+
+        GetEnterprisesArgs getEnterprisesArgs = new GetEnterprisesArgs();
+        Parameter__1 parameter = new Parameter__1();
+        parameter.setIncludeCustomFields(true);
+        parameter.setRecno(recNo);
+        getEnterprisesArgs.setParameter(parameter);
+
+        GetEnterprisesResponse getEnterprisesResponse = call("ContactService/GetEnterprises", getEnterprisesArgs, GetEnterprisesResponse.class);
+
+        log.info("EnterpriseResult: {}", getEnterprisesResponse);
+
+        if (getEnterprisesResponse.getSuccessful() && getEnterprisesResponse.getTotalPageCount() == 1) {
+            return getEnterprisesResponse.getEnterprises().get(0);
+        }
+
+        return null;
+    }
+    public Enterprise getEnterpriseByEnterpriseNumber(String enterpriseNumber) throws EnterpriseNotFound {
+        GetEnterprisesArgs getEnterprisesArgs = new GetEnterprisesArgs();
+        Parameter__1 parameter = new Parameter__1();
+        parameter.setIncludeCustomFields(true);
+        parameter.setEnterpriseNumber(enterpriseNumber);
+        getEnterprisesArgs.setParameter(parameter);
+
+        GetEnterprisesResponse getEnterprisesResponse = call("ContactService/GetEnterprises", getEnterprisesArgs, GetEnterprisesResponse.class);
+
+        log.info("EnterpriseResult: {}", getEnterprisesResponse);
+
+        if (getEnterprisesResponse.getSuccessful() && getEnterprisesResponse.getTotalPageCount() == 1) {
+            return getEnterprisesResponse.getEnterprises().get(0);
+        }
+
+        throw new EnterpriseNotFound(getEnterprisesResponse.getErrorMessage());
+    }
+
+    public Stream<Enterprise> searchEnterprise(Map<String, String> queryParams) {
+        GetEnterprisesArgs getEnterprisesArgs = new GetEnterprisesArgs();
+        Parameter__1 parameter = new Parameter__1();
+
+        if (queryParams.containsKey("navn")) {
+            parameter.setName(queryParams.get("navn"));
+        }
+        if (queryParams.containsKey("organisasjonsnummer")) {
+            parameter.setEnterpriseNumber(queryParams.get("organisasjonsnummer"));
+        }
+        if (queryParams.containsKey("maxResults")) {
+            parameter.setMaxRows(Integer.valueOf(queryParams.get("maxResults")));
+        }
+        getEnterprisesArgs.setParameter(parameter);
+
+        log.info("GetEnterprises query: {}", getEnterprisesArgs);
+        GetEnterprisesResponse getEnterprisesResponse = call("ContactService/GetEnterprises", getEnterprisesArgs, GetEnterprisesResponse.class);
+        log.info("GetEnterprises result: {}", getEnterprisesResponse);
+
+        if (!getEnterprisesResponse.getSuccessful()) {
+            return Stream.empty();
+        }
+        return getEnterprisesResponse.getEnterprises().stream();
+    }
 /*
-    public GetEnterprisesResponse getEnterpriseByRecno(int recNo) {
-    }
-
-    public GetEnterprisesResponse getEnterpriseByEnterpriseNumber(String enterpriseNumber) throws EnterpriseNotFound {
-    }
-
-    public Stream<GetEnterprisesResponse> searchEnterprise(Map<String, String> queryParams) {
-    }
 
     public Stream<GetPrivatePersonsResponse> searchPrivatePerson(Map<String, String> queryParams) {
     }
