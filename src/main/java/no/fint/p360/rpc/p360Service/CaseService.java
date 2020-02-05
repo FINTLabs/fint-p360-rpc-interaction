@@ -13,32 +13,27 @@ public class CaseService extends P360Service {
 
     public Case getCaseByCaseNumber(String caseNumber) {
 
-        GetCasesArgs getCasesArgs = new GetCasesArgs();
-        Parameter__1 parameter = new Parameter__1();
-        parameter.setCaseNumber(caseNumber);
-        getCasesArgs.setParameter(parameter);
+        GetCasesArgs getCasesArgs = CreateGetCaseArgsWithParameter();
+        getCasesArgs.getParameter().setCaseNumber(caseNumber);
 
         return getCase(getCasesArgs);
     }
 
     public Case getCaseBySystemId(String systemId) {
 
-        GetCasesArgs getCasesArgs = new GetCasesArgs();
-        Parameter__1 parameter = new Parameter__1();
-        parameter.setRecno(Integer.valueOf(systemId));
-        getCasesArgs.setParameter(parameter);
+        GetCasesArgs getCasesArgs = CreateGetCaseArgsWithParameter();
+        getCasesArgs.getParameter().setRecno(Integer.valueOf(systemId));
 
         return getCase(getCasesArgs);
     }
 
     public Case getCaseByExternalId(String externalId) {
 
-        GetCasesArgs getCasesArgs = new GetCasesArgs();
-        Parameter__1 parameter = new Parameter__1();
         ExternalId__1 id = new ExternalId__1();
         id.setId(externalId);
-        parameter.setExternalId(id);
-        getCasesArgs.setParameter(parameter);
+
+        GetCasesArgs getCasesArgs = CreateGetCaseArgsWithParameter();
+        getCasesArgs.getParameter().setExternalId(id);
 
         return getCase(getCasesArgs);
     }
@@ -63,9 +58,17 @@ public class CaseService extends P360Service {
 
         CreateCaseResponse response = call("CaseService/CreateCase", createCasesArgs, CreateCaseResponse.class);
 
-        if(!response.getSuccessful())
+        if (!response.getSuccessful())
             throw new CreateCaseException(response.getErrorDetails());
 
         return response.getCaseNumber();
+    }
+
+    private static GetCasesArgs CreateGetCaseArgsWithParameter() {
+
+        GetCasesArgs getCasesArgs = new GetCasesArgs();
+        getCasesArgs.setParameter(new Parameter__1());
+
+        return getCasesArgs;
     }
 }
