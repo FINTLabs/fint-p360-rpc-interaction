@@ -99,4 +99,13 @@ public class P360Controller {
     public ResponseEntity<Stream<Enterprise>> searchEnterprise(@RequestBody Map<String, String> map){
         return ResponseEntity.ok(contactService.searchEnterprise(map));
     }
+
+    @GetMapping("contact/searchPrivatePerson")
+    public ResponseEntity<Stream<PrivatePerson>> searchPrivatePerson(@RequestBody Map<String, String> map){
+        return ResponseEntity.ok(contactService.searchPrivatePerson(map));
+    }
+    @GetMapping("contact/searchContactPerson")
+    public ResponseEntity<Stream<ContactPerson>> searchContactPerson(@RequestBody Map<String, String> map){
+        return ResponseEntity.ok(contactService.searchContactPerson(map));
+    }
 }

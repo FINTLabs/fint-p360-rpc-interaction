@@ -121,17 +121,52 @@ public class ContactService extends P360Service {
         }
         return getEnterprisesResponse.getEnterprises().stream();
     }
-/*
 
-    public Stream<GetPrivatePersonsResponse> searchPrivatePerson(Map<String, String> queryParams) {
+    //TODO: Test if works
+    public Stream<PrivatePerson> searchPrivatePerson(Map<String, String> queryParams) {
+        GetPrivatePersonsArgs getPrivatePersonsArgs = new GetPrivatePersonsArgs();
+        Parameter__2 parameter = new Parameter__2();
+        if (queryParams.containsKey("navn")) {
+            parameter.setName(queryParams.get("navn"));
+        }
+        if (queryParams.containsKey("maxResults")) {
+            parameter.setMaxRows(Integer.valueOf(queryParams.get("maxResults")));
+        }
+        getPrivatePersonsArgs.setParameter(parameter);
+
+        log.info("GetPrivatePersons query: {}", getPrivatePersonsArgs);
+        GetPrivatePersonsResponse getPrivatePersonsResponse = call("ContactService/GetPrivatePersons", getPrivatePersonsArgs, GetPrivatePersonsResponse.class);
+        log.info("GetPrivatePersons: {}", getPrivatePersonsResponse);
+
+        if (!getPrivatePersonsResponse.getSuccessful()) {
+            return Stream.empty();
+        }
+
+        return getPrivatePersonsResponse.getPrivatePersons().stream();
     }
 
-    public Stream<GetContactPersonsResponse> searchContactPerson(Map<String, String> queryParams) {
-    }
+    //Todo: Test if works
+    public Stream<ContactPerson> searchContactPerson(Map<String, String> queryParams) {
+        GetContactPersonsArgs getContactPersonsArgs = new GetContactPersonsArgs();
+        Parameter parameter = new Parameter();
 
-    public Integer createPrivatePerson(SynchronizePrivatePersonArgs privatePerson) throws CreateContactException {
-    }
+        if (queryParams.containsKey("navn")) {
+            parameter.setName(queryParams.get("navn"));
+        }
+        if (queryParams.containsKey("maxResults")) {
+            parameter.setMaxRows(Integer.valueOf(queryParams.get("maxResults")));
+        }
 
-    public Integer createEnterprise(SynchronizeEnterpriseArgs enterprise) throws CreateEnterpriseException {
-    }*/
+        getContactPersonsArgs.setParameter(parameter);
+
+        log.info("GetContactPersons query: {}", getContactPersonsArgs);
+        GetContactPersonsResponse getContactPersonsResponse = call("ContactService/GetContactPersons", getContactPersonsArgs, GetContactPersonsResponse.class);
+        log.info("GetContactPersons result: {}", getContactPersonsResponse);
+
+        if (!getContactPersonsResponse.getSuccessful()) {
+            return Stream.empty();
+        }
+
+        return getContactPersonsResponse.getContactPersons().stream();
+    }
 }
