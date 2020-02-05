@@ -37,7 +37,7 @@ public class P360Controller {
     private ContactService contactService;
 
     @GetMapping("sak/systemid/{systemid}")
-    public ResponseEntity<Case> getSak(@PathVariable int systemid) {
+    public ResponseEntity<Case> getSak(@PathVariable String systemid) {
 
         return ResponseEntity.ok().body(caseService.getCaseBySystemId(systemid));
     }

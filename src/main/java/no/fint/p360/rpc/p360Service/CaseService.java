@@ -11,11 +11,11 @@ import java.util.List;
 @Slf4j
 public class CaseService extends P360Service {
 
-    public Case getCaseBySystemId(int systemId) {
+    public Case getCaseBySystemId(String systemId) {
 
         GetCasesArgs getCasesArgs = new GetCasesArgs();
         Parameter__1 parameter = new Parameter__1();
-        parameter.setRecno(systemId);
+        parameter.setRecno(Integer.valueOf(systemId));
         getCasesArgs.setParameter(parameter);
 
         return getCase(getCasesArgs);
