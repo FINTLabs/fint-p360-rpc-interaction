@@ -30,6 +30,9 @@ configurations {
 
 repositories {
     mavenCentral()
+    maven {
+        url 'http://dl.bintray.com/fint/maven'
+    }
 }
 
 dependencies {
@@ -37,6 +40,13 @@ dependencies {
     compile 'javax.validation:validation-api'
     // Required if generating Jackson 2 annotations
     compile 'com.fasterxml.jackson.core:jackson-databind'
+
+    compile('no.fint:fint-event-model:3.0.0')
+    compile('no.fint:fint-relation-model:1.1.5')
+    compile('no.fint:fint-model-resource:0.3.3')
+    compile('org.apache.commons:commons-lang3:3.9')
+
+    compile("no.fint:fint-arkiv-model-java:3.4.0-alpha-10")
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-webflux'

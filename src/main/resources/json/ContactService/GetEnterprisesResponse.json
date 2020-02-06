@@ -36,6 +36,11 @@
       "CustomNo1": "string",
       "CustomNo2": "string",
       "CustomNo3": "string",
+      "ContactRelations": [
+        {
+          "Name": "string"
+        }
+      ],
       "Active": true,
       "CreatedDate": "2020-01-22T14:28:31.893Z",
       "ModifiedDate": "2020-01-22T14:28:31.893Z",

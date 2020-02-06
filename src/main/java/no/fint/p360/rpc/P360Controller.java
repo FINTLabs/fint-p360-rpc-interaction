@@ -1,15 +1,15 @@
 package no.fint.p360.rpc;
 
 import no.fint.p360.data.exception.*;
-import no.fint.p360.rpc.p360Service.CaseService;
-import no.fint.p360.rpc.p360Service.ContactService;
-import no.fint.p360.rpc.p360Service.DocumentService;
+import no.fint.p360.rpc.p360Service.*;
 import no.p360.model.CaseService.Case;
 import no.p360.model.CaseService.CreateCaseArgs;
 import no.p360.model.CaseService.GetCasesArgs;
 import no.p360.model.ContactService.*;
 import no.p360.model.DocumentService.CreateDocumentArgs;
 import no.p360.model.DocumentService.Document__1;
+import no.p360.model.SupportService.CodeTableRow;
+import no.p360.model.SupportService.GetCodeTableRowsResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -34,6 +34,9 @@ public class P360Controller {
 
     @Autowired
     private ContactService contactService;
+
+    @Autowired
+    private SupportService supportService;
 
     @GetMapping("case/casenumber/{year}/{number}")
     public ResponseEntity<Case> getCaseByCaseNumber(@PathVariable String year, @PathVariable String number) {
@@ -135,4 +138,15 @@ public class P360Controller {
     public ResponseEntity<Integer> createEnterprise(@RequestBody SynchronizeEnterpriseArgs synchronizeEnterpriseArgs) throws CreateEnterpriseException {
         return ResponseEntity.ok(contactService.createEnterprise(synchronizeEnterpriseArgs));
     }
+
+    @GetMapping("support/getCodeTableRows")
+    public ResponseEntity<GetCodeTableRowsResponse> getCodeTableRows(@RequestBody CodeTableCode code){
+        return ResponseEntity.ok(supportService.getCodeTable(code.getCode()));
+    }
+
+    @GetMapping("support/getCodeTableRowsAsStream")
+    public ResponseEntity<Stream<CodeTableRow>> getCodeTableRowsAsStream(@RequestBody CodeTableCode code){
+        return ResponseEntity.ok(supportService.getCodeTableRowResultStream(code.getCode()));
+    }
+
 }
