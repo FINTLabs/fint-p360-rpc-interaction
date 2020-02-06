@@ -1,6 +1,8 @@
 package no.fint.p360.rpc;
 
+import no.fint.model.resource.administrasjon.arkiv.SakResource;
 import no.fint.p360.data.exception.*;
+import no.fint.p360.rpc.data.noark.sak.SakService;
 import no.fint.p360.rpc.p360Service.*;
 import no.p360.model.CaseService.Case;
 import no.p360.model.CaseService.CreateCaseArgs;
@@ -27,6 +29,9 @@ import java.util.stream.Stream;
 public class P360Controller {
 
     @Autowired
+    private SakService sakService;
+
+    @Autowired
     private CaseService caseService;
 
     @Autowired
@@ -38,12 +43,26 @@ public class P360Controller {
     @Autowired
     private SupportService supportService;
 
+    @GetMapping("sak/casenumber/{year}/{number}")
+    public ResponseEntity<SakResource> getSakByCaseNumber(@PathVariable String year, @PathVariable String number) throws GetDocumentException, IllegalCaseNumberFormat {
+
+        String caseNumber = year + "/" + number;
+
+        return ResponseEntity.ok().body(sakService.getSakByCaseNumber(caseNumber));
+    }
+
     @GetMapping("case/casenumber/{year}/{number}")
     public ResponseEntity<Case> getCaseByCaseNumber(@PathVariable String year, @PathVariable String number) {
 
         String caseNumber = year + "/" + number;
 
         return ResponseEntity.ok().body(caseService.getCaseByCaseNumber(caseNumber));
+    }
+
+    @GetMapping("sak/systemid/{systemId}")
+    public ResponseEntity<SakResource> getSakBySystemId(@PathVariable String systemId) throws IllegalCaseNumberFormat, GetDocumentException {
+
+        return ResponseEntity.ok().body(sakService.getSakBySystemId(systemId));
     }
 
     @GetMapping("case/systemid/{systemId}")
@@ -56,6 +75,12 @@ public class P360Controller {
     public ResponseEntity<Case> getCaseByExternalId(@PathVariable String externalId) {
 
         return ResponseEntity.ok().body(caseService.getCaseByExternalId(externalId));
+    }
+
+    @GetMapping("sak/title")
+    public ResponseEntity<List<SakResource>> searchSakByTitle(@RequestParam Map<String, String> query) throws IllegalCaseNumberFormat, GetDocumentException {
+
+        return ResponseEntity.ok().body(sakService.searchSakByTitle(query));
     }
 
     @GetMapping("case/title/{title}")
