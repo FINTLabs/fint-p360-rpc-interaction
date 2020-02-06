@@ -1,6 +1,8 @@
 package no.fint.p360.rpc.p360Service;
 
 import lombok.extern.slf4j.Slf4j;
+import no.fint.p360.data.exception.CreateContactException;
+import no.fint.p360.data.exception.CreateEnterpriseException;
 import no.fint.p360.data.exception.EnterpriseNotFound;
 import no.fint.p360.data.exception.PrivatePersonNotFound;
 import no.p360.model.ContactService.*;
@@ -122,7 +124,6 @@ public class ContactService extends P360Service {
         return getEnterprisesResponse.getEnterprises().stream();
     }
 
-    //TODO: Test if works
     public Stream<PrivatePerson> searchPrivatePerson(Map<String, String> queryParams) {
         GetPrivatePersonsArgs getPrivatePersonsArgs = new GetPrivatePersonsArgs();
         Parameter__2 parameter = new Parameter__2();
@@ -145,7 +146,6 @@ public class ContactService extends P360Service {
         return getPrivatePersonsResponse.getPrivatePersons().stream();
     }
 
-    //Todo: Test if works
     public Stream<ContactPerson> searchContactPerson(Map<String, String> queryParams) {
         GetContactPersonsArgs getContactPersonsArgs = new GetContactPersonsArgs();
         Parameter parameter = new Parameter();
@@ -168,5 +168,25 @@ public class ContactService extends P360Service {
         }
 
         return getContactPersonsResponse.getContactPersons().stream();
+    }
+
+        public Integer createPrivatePerson(SynchronizePrivatePersonArgs privatePerson) throws CreateContactException {
+        log.info("Create Private Person: {}", privatePerson);
+        SynchronizePrivatePersonResponse synchronizePrivatePersonResponse = call("ContactService/SynchronizePrivatePerson", privatePerson, SynchronizePrivatePersonResponse.class);
+        log.info("Private Person Result: {}", synchronizePrivatePersonResponse);
+        if (synchronizePrivatePersonResponse.getSuccessful()) {
+            return synchronizePrivatePersonResponse.getRecno();
+        }
+        throw new CreateContactException(synchronizePrivatePersonResponse.getErrorMessage());
+    }
+
+    public Integer createEnterprise(SynchronizeEnterpriseArgs enterprise) throws CreateEnterpriseException {
+        log.info("Create Enterprise: {}", enterprise);
+        SynchronizeEnterpriseResponse synchronizeEnterpriseResponse = call("ContactService/SynchronizeEnterprise", enterprise, SynchronizeEnterpriseResponse.class);
+        log.info("Enterprise Result: {}", synchronizeEnterpriseResponse);
+        if (synchronizeEnterpriseResponse.getSuccessful()) {
+            return synchronizeEnterpriseResponse.getRecno();
+        }
+        throw new CreateEnterpriseException(synchronizeEnterpriseResponse.getErrorMessage());
     }
 }

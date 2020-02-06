@@ -7,9 +7,7 @@ import no.fint.p360.rpc.p360Service.DocumentService;
 import no.p360.model.CaseService.Case;
 import no.p360.model.CaseService.CreateCaseArgs;
 import no.p360.model.CaseService.GetCasesArgs;
-import no.p360.model.ContactService.ContactPerson;
-import no.p360.model.ContactService.Enterprise;
-import no.p360.model.ContactService.PrivatePerson;
+import no.p360.model.ContactService.*;
 import no.p360.model.DocumentService.CreateDocumentArgs;
 import no.p360.model.DocumentService.Document__1;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -128,5 +126,13 @@ public class P360Controller {
     @GetMapping("contact/searchContactPerson")
     public ResponseEntity<Stream<ContactPerson>> searchContactPerson(@RequestBody Map<String, String> map){
         return ResponseEntity.ok(contactService.searchContactPerson(map));
+    }
+    @PostMapping("contact/createPrivatePerson")
+    public ResponseEntity<Integer> createPrivatePerson(@RequestBody SynchronizePrivatePersonArgs synchronizePrivatePersonArgs) throws CreateContactException {
+        return ResponseEntity.ok(contactService.createPrivatePerson(synchronizePrivatePersonArgs));
+    }
+    @PostMapping("contact/createEnterprise")
+    public ResponseEntity<Integer> createEnterprise(@RequestBody SynchronizeEnterpriseArgs synchronizeEnterpriseArgs) throws CreateEnterpriseException {
+        return ResponseEntity.ok(contactService.createEnterprise(synchronizeEnterpriseArgs));
     }
 }
