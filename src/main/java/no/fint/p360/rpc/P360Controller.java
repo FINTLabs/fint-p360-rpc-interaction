@@ -2,6 +2,8 @@ package no.fint.p360.rpc;
 
 import no.fint.p360.data.exception.*;
 import no.fint.p360.rpc.p360Service.*;
+import no.p360.model.AccessGroupService.GetAccessGroupsArgs;
+import no.p360.model.AccessGroupService.GetAccessGroupsResponse;
 import no.p360.model.CaseService.Case;
 import no.p360.model.CaseService.CreateCaseArgs;
 import no.p360.model.CaseService.GetCasesArgs;
@@ -37,6 +39,9 @@ public class P360Controller {
 
     @Autowired
     private SupportService supportService;
+
+    @Autowired
+    private AccessGroupService accessGroupService;
 
     @GetMapping("case/casenumber/{year}/{number}")
     public ResponseEntity<Case> getCaseByCaseNumber(@PathVariable String year, @PathVariable String number) {
@@ -148,5 +153,11 @@ public class P360Controller {
     public ResponseEntity<Stream<CodeTableRow>> getCodeTableRowsAsStream(@RequestBody CodeTableCode code){
         return ResponseEntity.ok(supportService.getCodeTableRowResultStream(code.getCode()));
     }
+
+    @GetMapping("accessgroup/getAccessGroups")
+    public ResponseEntity<GetAccessGroupsResponse> getAccessGroups(@RequestBody GetAccessGroupsArgs args){
+        return ResponseEntity.ok(accessGroupService.getAccessGroups(args));
+    }
+
 
 }
