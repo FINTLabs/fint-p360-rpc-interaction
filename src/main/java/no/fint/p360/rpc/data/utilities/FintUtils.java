@@ -1,4 +1,4 @@
-package no.fint.p360.utilities;
+package no.fint.p360.rpc.data.utilities;
 
 import lombok.extern.slf4j.Slf4j;
 import no.fint.model.felles.kompleksedatatyper.Identifikator;

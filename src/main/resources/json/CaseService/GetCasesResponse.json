@@ -151,7 +151,25 @@
       "Notes": "string",
       "CaseTypeCode": "string",
       "CaseTypeDescription": "string",
-      "Contacts": {},
+      "Contacts": [
+        {
+          "Address": {
+            "Type": "string",
+            "Area": "string",
+            "Country": "string",
+            "County": "string",
+            "State": "string",
+            "StreetAddress": "string",
+            "ZipCode": "string",
+            "ZipPlace": "string"
+          },
+          "ContactName":"string",
+          "ContactType": "string",
+          "Recno": 0,
+          "Referencenumber": "string",
+          "Role": "string"
+        }
+      ],
       "ProjectRecno": "string",
       "ProjectName": "string",
       "SubArchive": "string",

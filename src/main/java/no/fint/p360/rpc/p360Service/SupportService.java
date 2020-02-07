@@ -2,7 +2,7 @@ package no.fint.p360.rpc.p360Service;
 
 import lombok.extern.slf4j.Slf4j;
 import no.fint.p360.data.exception.CodeTableNotFound;
-import no.fint.p360.utilities.FintUtils;
+import no.fint.p360.rpc.data.utilities.FintUtils;
 import no.p360.model.SupportService.CodeTableRow;
 import no.p360.model.SupportService.GetCodeTableRowsArgs;
 import no.p360.model.SupportService.GetCodeTableRowsResponse;
