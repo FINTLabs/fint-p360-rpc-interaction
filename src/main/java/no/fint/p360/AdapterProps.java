@@ -10,8 +10,8 @@ import java.nio.file.Path;
 @Component
 public class AdapterProps {
 
-    // Commented out because of missing Value injections
 /*
+    // Commented out because of missing Value injections
     @Value("${fint.p360.user}")
     private String p360User;
 

@@ -12,6 +12,7 @@ import no.p360.model.CaseService.GetCasesArgs;
 import no.p360.model.ContactService.*;
 import no.p360.model.DocumentService.CreateDocumentArgs;
 import no.p360.model.DocumentService.Document__1;
+import no.p360.model.FileService.File;
 import no.p360.model.SupportService.CodeTableRow;
 import no.p360.model.SupportService.GetCodeTableRowsResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,9 @@ public class P360Controller {
 
     @Autowired
     private AccessGroupService accessGroupService;
+
+    @Autowired
+    private FileService fileService;
 
     @GetMapping("sak/casenumber/{year}/{number}")
     public ResponseEntity<SakResource> getSakByCaseNumber(@PathVariable String year, @PathVariable String number) throws GetDocumentException, IllegalCaseNumberFormat {
@@ -183,6 +187,8 @@ public class P360Controller {
     public ResponseEntity<GetAccessGroupsResponse> getAccessGroups(@RequestBody GetAccessGroupsArgs args){
         return ResponseEntity.ok(accessGroupService.getAccessGroups(args));
     }
-
-
+    @GetMapping("file/getFileByRecno/{recno}")
+    public ResponseEntity<File> getFileByRecno(@PathVariable String recno){
+        return ResponseEntity.ok(fileService.getFileByRecNo(recno));
+    }
 }
