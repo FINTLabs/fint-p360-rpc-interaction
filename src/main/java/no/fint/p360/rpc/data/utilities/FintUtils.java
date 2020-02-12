@@ -10,11 +10,20 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Slf4j
 public enum FintUtils {
     ;
+
+    private static final DateTimeFormatter formatter = createDateTimeFormatter();
+
+    private static DateTimeFormatter createDateTimeFormatter() {
+        return DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss[.SSS][x]").withZone(ZoneOffset.UTC);
+    }
 
     public static Identifikator createIdentifikator(String value) {
         Identifikator identifikator = new Identifikator();
@@ -35,6 +44,12 @@ public enum FintUtils {
             return null;
         }
     }
+
+    public static Date parseIsoDate(String value) {
+        ZonedDateTime zonedDateTime = ZonedDateTime.parse(value, formatter);
+        return Date.from(zonedDateTime.toInstant());
+    }
+
     public static Kontaktinformasjon createKontaktinformasjon(PrivatePerson result) {
         return getKontaktinformasjon(result.getEmail(), result.getMobilePhone(), result.getPhoneNumber());
     }

@@ -54,15 +54,14 @@ public enum P360Utils {
 
         return objectFactory.createCaseParameterBaseArchiveCodes(arrayOfClassCodeParameter);
     }
-
-    public static <T> void applyParameterFromLink(List<Link> links, Function<String, T> mapper, Consumer<T> consumer) {
+*/
+    public static <T> void applyParameterFromLink(List<Link> links,  Consumer<String> consumer) {
         links.stream()
                 .map(Link::getHref)
                 .filter(StringUtils::isNotBlank)
                 .map(s -> StringUtils.substringAfterLast(s, "/"))
                 .map(s -> StringUtils.prependIfMissing(s, "recno:"))
-                .map(mapper)
                 .findFirst()
                 .ifPresent(consumer);
-    }*/
+    }
 }

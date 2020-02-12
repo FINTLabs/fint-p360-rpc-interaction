@@ -45,7 +45,7 @@ dependencies {
     compile('no.fint:fint-relation-model:1.1.5')
     compile('no.fint:fint-model-resource:0.3.3')
     compile('org.apache.commons:commons-lang3:3.9')
-
+    compile('org.apache.tika:tika-core:1.23')
     compile('com.google.guava:guava:28.1-jre')
     compile('org.jooq:jool-java-8:0.9.14')
 

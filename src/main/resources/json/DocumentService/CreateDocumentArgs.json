@@ -79,9 +79,7 @@
         "Title": "string",
         "Format": "string",
         "Base64Data": "string",
-        "Data": [
-          {}
-        ],
+        "Data": "string",
         "RelationType": "string",
         "VersionFormat": "string",
         "Note": "string",
