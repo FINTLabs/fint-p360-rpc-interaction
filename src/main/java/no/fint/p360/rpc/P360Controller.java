@@ -2,12 +2,13 @@ package no.fint.p360.rpc;
 
 import no.fint.model.resource.administrasjon.arkiv.ArkivdelResource;
 import no.fint.model.resource.administrasjon.arkiv.KorrespondansepartResource;
+import no.fint.model.resource.administrasjon.arkiv.PartResource;
 import no.fint.model.resource.administrasjon.arkiv.SakResource;
 import no.fint.p360.data.exception.*;
 import no.fint.p360.rpc.data.noark.arkivdel.ArkivdelService;
 import no.fint.p360.rpc.data.noark.korrespondansepart.KorrespondansepartService;
+import no.fint.p360.rpc.data.noark.part.PartService;
 import no.fint.p360.rpc.data.noark.sak.SakService;
-import no.fint.p360.rpc.p360Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -33,22 +34,7 @@ public class P360Controller {
     private ArkivdelService arkivdelService;
 
     @Autowired
-    private CaseService caseService;
-
-    @Autowired
-    private DocumentService documentService;
-
-    @Autowired
-    private ContactService contactService;
-
-    @Autowired
-    private SupportService supportService;
-
-    @Autowired
-    private AccessGroupService accessGroupService;
-
-    @Autowired
-    private FileService fileService;
+    private PartService partService;
 
     @GetMapping("sak/casenumber/{year}/{number}")
     public ResponseEntity<SakResource> getSakByCaseNumber(@PathVariable String year, @PathVariable String number) throws GetDocumentException, IllegalCaseNumberFormat {
@@ -107,5 +93,13 @@ public class P360Controller {
     public ResponseEntity<Stream<ArkivdelResource>> getArkivdel() {
 
         return ResponseEntity.ok().body(arkivdelService.getArkivdel());
+    }
+
+    //**************** PartService ********************
+
+    @GetMapping("part/getPartByPartId/{id}")
+    public ResponseEntity<PartResource> getPartByPartId(@PathVariable int id) throws PartNotFound {
+
+        return ResponseEntity.ok().body(partService.getPartByPartId(id));
     }
 }
