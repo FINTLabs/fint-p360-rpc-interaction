@@ -1,8 +1,10 @@
 package no.fint.p360.rpc;
 
+import no.fint.model.resource.administrasjon.arkiv.ArkivdelResource;
 import no.fint.model.resource.administrasjon.arkiv.KorrespondansepartResource;
 import no.fint.model.resource.administrasjon.arkiv.SakResource;
 import no.fint.p360.data.exception.*;
+import no.fint.p360.rpc.data.noark.arkivdel.ArkivdelService;
 import no.fint.p360.rpc.data.noark.korrespondansepart.KorrespondansepartService;
 import no.fint.p360.rpc.data.noark.sak.SakService;
 import no.fint.p360.rpc.p360Service.*;
@@ -26,6 +28,9 @@ public class P360Controller {
 
     @Autowired
     private KorrespondansepartService korrespondansepartService;
+
+    @Autowired
+    private ArkivdelService arkivdelService;
 
     @Autowired
     private CaseService caseService;
@@ -66,6 +71,7 @@ public class P360Controller {
     }
 
     //**************** KorrespondansepartService ********************
+
     @GetMapping("korrespondansepart/systemid/{systemid}")
     public ResponseEntity<KorrespondansepartResource> getKorrespondansePartBySystemId(@PathVariable int systemid) throws KorrespondansepartNotFound {
 
@@ -95,4 +101,11 @@ public class P360Controller {
         return ResponseEntity.ok().body(korrespondansepartService.search(queryParams));
     }
 
+    //**************** ArkivdelService ********************
+
+    @GetMapping("arkiv/getArkivdel")
+    public ResponseEntity<Stream<ArkivdelResource>> getArkivdel() {
+
+        return ResponseEntity.ok().body(arkivdelService.getArkivdel());
+    }
 }
