@@ -87,7 +87,7 @@ public class KorrespondansepartFactory {
                 .map(Kontaktinformasjon::getMobiltelefonnummer)
                 .ifPresent(parameter::setMobilePhone);
 
-        parameter.setPrivateAddress(createAddress(korrespondansepartResource.getAdresse(), parameter.getPrivateAddress()));
+        parameter.setPrivateAddress(createAddress(korrespondansepartResource.getAdresse(), new PrivateAddress__3()));
 
         synchronizePrivatePersonArgs.setParameter(parameter);
         return synchronizePrivatePersonArgs;
@@ -116,7 +116,7 @@ public class KorrespondansepartFactory {
                 .map(Kontaktinformasjon::getNettsted)
                 .ifPresent(parameter::setWeb);
 
-        parameter.setPostAddress(createAddress(korrespondansepartResource.getAdresse(), parameter.getPostAddress()));
+        parameter.setPostAddress(createAddress(korrespondansepartResource.getAdresse(), new PostAddress__4()));
 
         synchronizeEnterpriseArgs.setParameter(parameter);
         return synchronizeEnterpriseArgs;
