@@ -2,6 +2,7 @@ package no.fint.p360.rpc.data.utilities;
 
 import no.fint.model.felles.kompleksedatatyper.Identifikator;
 import no.fint.model.resource.Link;
+import no.p360.model.CaseService.ExternalId;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.xml.bind.JAXBElement;
@@ -29,17 +30,18 @@ public enum P360Utils {
         }
         return new URL("file:" + location);
     }
+*/
 
-    public static JAXBElement<ExternalIdParameter> getExternalIdParameter(Identifikator id) {
-        ObjectFactory objectFactory = new ObjectFactory();
+    public static ExternalId getExternalIdParameter(Identifikator id) {
 
-        ExternalIdParameter externalIdParameter = objectFactory.createExternalIdParameter();
-        externalIdParameter.setId(objectFactory.createExternalIdParameterId(id.getIdentifikatorverdi()));
-        externalIdParameter.setType(objectFactory.createExternalIdParameterType(Constants.EXTERNAL_ID_TYPE));
+        ExternalId externalId = new ExternalId();
+        externalId.setId(id.getIdentifikatorverdi());
+        externalId.setType(Constants.EXTERNAL_ID_TYPE);
 
-        return objectFactory.createCaseParameterBaseExternalId(externalIdParameter);
+        return externalId;
     }
 
+/*
     public static JAXBElement<ArrayOfClassCodeParameter> getArchiveCodes(String type, String code) {
         ObjectFactory objectFactory = new ObjectFactory();
 
@@ -60,7 +62,6 @@ public enum P360Utils {
                 .map(Link::getHref)
                 .filter(StringUtils::isNotBlank)
                 .map(s -> StringUtils.substringAfterLast(s, "/"))
-                .map(s -> StringUtils.prependIfMissing(s, "recno:"))
                 .findFirst()
                 .ifPresent(consumer);
     }
