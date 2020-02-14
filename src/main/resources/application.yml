@@ -1,0 +1,7 @@
+fint:
+  p360:
+    defaults:
+      casetype:
+        tilskudd-fartoy:
+          noekkelord:
+          klassifikasjon: Fartøy

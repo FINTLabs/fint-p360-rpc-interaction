@@ -39,9 +39,6 @@ public class TilskuddFartoyFactory {
     private NoarkFactory noarkFactory;
 
     @Autowired
-    private KorrespondansepartFactory korrespondansepartFactory;
-
-    @Autowired
     private JournalpostFactory journalpostFactory;
 
     @Autowired
