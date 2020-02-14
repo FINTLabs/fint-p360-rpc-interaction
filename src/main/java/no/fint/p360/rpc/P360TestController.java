@@ -1,9 +1,6 @@
 package no.fint.p360.rpc;
 
-import no.fint.model.resource.administrasjon.arkiv.SakResource;
 import no.fint.p360.data.exception.*;
-import no.fint.p360.rpc.data.noark.sak.SakService;
-import no.fint.p360.rpc.data.utilities.FintUtils;
 import no.fint.p360.rpc.p360Service.*;
 import no.p360.model.AccessGroupService.GetAccessGroupsArgs;
 import no.p360.model.AccessGroupService.GetAccessGroupsResponse;
@@ -21,7 +18,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -29,8 +25,6 @@ import java.util.stream.Stream;
 @Controller
 public class P360TestController {
 
-    @Autowired
-    private SakService sakService;
 
     @Autowired
     private CaseService caseService;
@@ -168,12 +162,5 @@ public class P360TestController {
     @GetMapping("file/getFileByRecno/{recno}")
     public ResponseEntity<File> getFileByRecno(@PathVariable String recno){
         return ResponseEntity.ok(fileService.getFileByRecNo(recno));
-    }
-
-    @GetMapping("testDate")
-    public ResponseEntity<Date> testDate(){
-        String dateAsString = "2017-12-05T09:40:47";
-        Date date = FintUtils.parseIsoDate(dateAsString);
-        return ResponseEntity.ok(date);
     }
 }
