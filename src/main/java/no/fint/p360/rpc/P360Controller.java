@@ -1,9 +1,9 @@
 package no.fint.p360.rpc;
 
-import no.fint.model.resource.administrasjon.arkiv.ArkivdelResource;
-import no.fint.model.resource.administrasjon.arkiv.KorrespondansepartResource;
-import no.fint.model.resource.administrasjon.arkiv.PartResource;
-import no.fint.model.resource.administrasjon.arkiv.SakResource;
+import no.fint.model.administrasjon.arkiv.Partsinformasjon;
+import no.fint.model.felles.kompleksedatatyper.Identifikator;
+import no.fint.model.resource.Link;
+import no.fint.model.resource.administrasjon.arkiv.*;
 import no.fint.model.resource.kultur.kulturminnevern.TilskuddFartoyResource;
 import no.fint.p360.data.exception.*;
 import no.fint.p360.rpc.data.kulturminne.TilskuddfartoyService;
@@ -19,8 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Stream;
 
 @Controller
@@ -63,6 +62,7 @@ public class P360Controller {
     public ResponseEntity<KorrespondansepartResource> getKorrespondansePartBySystemId(@PathVariable int systemid) throws KorrespondansepartNotFound {
         return ResponseEntity.ok().body(korrespondansepartService.getKorrespondansepartBySystemId(systemid));
     }
+
     @GetMapping("korrespondansepart/fodselsnummer/{fodselsnummer}")
     public ResponseEntity<KorrespondansepartResource> getKorrespondansepartByFodselsnummer(@PathVariable String fodselsnummer) throws KorrespondansepartNotFound {
         return ResponseEntity.ok().body(korrespondansepartService.getKorrespondansepartByFodselsnummer(fodselsnummer));
@@ -100,8 +100,68 @@ public class P360Controller {
     //**************** TilskuffFartoyService ********************
 
     @GetMapping("tilskuddFartoy/createTilskuddFartoyCase")
-    public ResponseEntity<TilskuddFartoyResource> createTilskuddFartoyCase(@RequestBody TilskuddFartoyResource tilskuddFartoyResource) throws CreateDocumentException, CreateCaseException, NotTilskuddfartoyException, GetTilskuddFartoyNotFoundException, GetDocumentException, IllegalCaseNumberFormat, GetTilskuddFartoyException {
+    public ResponseEntity<TilskuddFartoyResource> createTilskuddFartoyCase() throws CreateDocumentException, CreateCaseException, NotTilskuddfartoyException, GetTilskuddFartoyNotFoundException, GetDocumentException, IllegalCaseNumberFormat, GetTilskuddFartoyException {
+        TilskuddFartoyResource tilskuddFartoyResource = new TilskuddFartoyResource();
+        tilskuddFartoyResource.setFartoyNavn("FINT fartoy");
+        tilskuddFartoyResource.setKallesignal("FINT kallesignal");
+        tilskuddFartoyResource.setKulturminneId("12345");
+        tilskuddFartoyResource.setTittel("FINT tittel");
+        Identifikator identifikator = new Identifikator();
+        identifikator.setIdentifikatorverdi("9988776646"); // Needs to change every new createTilskuddFartoyCase call.
+        tilskuddFartoyResource.setSoknadsnummer(identifikator);
+
+        Map<String, List<Link>> links = new LinkedHashMap<>();
+
+        ArrayList<Link> link = new ArrayList<>();
+        link.add(new Link("www.administrativEnhet.fint/1"));
+        links.put("administrativEnhet", link);
+
+        ArrayList<Link> link1 = new ArrayList<>();
+        link1.add(new Link("www.saksstatus.fint/B"));
+        links.put("saksstatus", link1);
+
+        ArrayList<PartsinformasjonResource> partsinformasjonResources = new ArrayList<>();
+        PartsinformasjonResource partsinformasjonResource = new PartsinformasjonResource();
+        Map<String, List<Link>> links2 = new LinkedHashMap<>();
+        ArrayList<Link> link2 = new ArrayList<>();
+        link2.add(new Link("www.part.fint/12"));
+        links2.put("part", link2);
+        partsinformasjonResource.setLinks(links2);
+        tilskuddFartoyResource.setPart(partsinformasjonResources);
+
+
+        ArrayList<MerknadResource> merknadResources = new ArrayList<>();
+        MerknadResource merknadResource = new MerknadResource();
+        merknadResource.setMerknadstekst("Fint merknadstekst");
+        merknadResources.add(merknadResource);
+        Map<String, List<Link>> links3 = new LinkedHashMap<>();
+        ArrayList<Link> link3 = new ArrayList<>();
+        link3.add(new Link("www.remark.fint/MS"));
+        links3.put("merknadstype", link3);
+        merknadResource.setLinks(links3);
+
+        tilskuddFartoyResource.setMerknad(merknadResources);
+
+        tilskuddFartoyResource.setLinks(links);
+
+        List<JournalpostResource> journalposts = new ArrayList<>();
+        JournalpostResource journalpost = new JournalpostResource();
+
+        journalpost.setAntallVedlegg(0L);
+        journalpost.setJournalAr("2020");
+        journalpost.setJournalPostnummer(1234L);
+        journalpost.setJournalSekvensnummer(1L);
+        journalpost.setBeskrivelse("FINT-Journalpost");
+        journalpost.setTittel("FINT-Tittel Journalpost");
+        journalpost.setOffentligTittel("FINT Offentlig tittel");
+        journalpost.addJournalposttype(new Link("www.category.fint/112"));
+        journalpost.addJournalstatus(new Link("www.journalstatus.fint/J"));
+
+
+        journalposts.add(journalpost);
+        tilskuddFartoyResource.setJournalpost(journalposts);
+
+
         return ResponseEntity.ok().body(tilskuddfartoyService.createTilskuddFartoyCase(tilskuddFartoyResource));
     }
-
 }

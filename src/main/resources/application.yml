@@ -4,4 +4,5 @@ fint:
       casetype:
         tilskudd-fartoy:
           noekkelord:
-          klassifikasjon: Fartøy
+          klassifikasjon: 60001
+          klasse: 1

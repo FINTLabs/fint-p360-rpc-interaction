@@ -133,6 +133,8 @@ public class TilskuddFartoyDefaults {
 
         archiveCode.setArchiveType(properties.getKlassifikasjon());
         archiveCode.setArchiveCode(properties.getKlasse());
+        archiveCode.setSort(1);
+        archiveCode.setIsManualText(false);
 
         archiveCodes.add(archiveCode);
 
