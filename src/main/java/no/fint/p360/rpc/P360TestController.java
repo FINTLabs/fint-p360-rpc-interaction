@@ -2,8 +2,8 @@ package no.fint.p360.rpc;
 
 import no.fint.p360.data.exception.*;
 import no.fint.p360.rpc.p360Service.*;
+import no.p360.model.AccessGroupService.AccessGroup;
 import no.p360.model.AccessGroupService.GetAccessGroupsArgs;
-import no.p360.model.AccessGroupService.GetAccessGroupsResponse;
 import no.p360.model.CaseService.Case;
 import no.p360.model.CaseService.CreateCaseArgs;
 import no.p360.model.CaseService.GetCasesArgs;
@@ -156,7 +156,7 @@ public class P360TestController {
     }
 
     @GetMapping("accessgroup/getAccessGroups")
-    public ResponseEntity<GetAccessGroupsResponse> getAccessGroups(@RequestBody GetAccessGroupsArgs args){
+    public ResponseEntity<List<AccessGroup>> getAccessGroups(@RequestBody GetAccessGroupsArgs args){
         return ResponseEntity.ok(accessGroupService.getAccessGroups(args));
     }
     @GetMapping("file/getFileByRecno/{recno}")

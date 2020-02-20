@@ -157,6 +157,8 @@ public class DokumentbeskrivelseFactory {
                 .findAny()
                 .orElseThrow(() -> new FileNotFound("File not found for " + dokumentbeskrivelse.getTittel()));
 
+
+        // TODO: Does this work at all?         file.setData(new String(bytes));
         file.setData(new String(bytes));
         return file;
     }

@@ -53,7 +53,7 @@ public class TilskuddfartoyService {
         return getTilskuddFartoyCaseByCaseNumber(caseNumber);
     }
 
-    public TilskuddFartoyResource getTilskuddFartoyCaseByCaseNumber(String caseNumber) throws NotTilskuddfartoyException, GetTilskuddFartoyNotFoundException, GetTilskuddFartoyException, GetDocumentException, IllegalCaseNumberFormat {
+    public TilskuddFartoyResource getTilskuddFartoyCaseByCaseNumber(String caseNumber) throws NotTilskuddfartoyException, GetDocumentException, IllegalCaseNumberFormat {
         Case caseByCaseNumber = caseService.getCaseByCaseNumber(caseNumber);
 
         if (isTilskuddFartoy(caseByCaseNumber)) {
@@ -63,7 +63,7 @@ public class TilskuddfartoyService {
         throw new NotTilskuddfartoyException(String.format("MappeId %s er ikke en Tilskuddfartøy sak", caseNumber));
     }
 
-    public TilskuddFartoyResource getTilskuddFartoyCaseByExternalId(String externalId) throws NotTilskuddfartoyException, GetTilskuddFartoyNotFoundException, GetTilskuddFartoyException, GetDocumentException, IllegalCaseNumberFormat {
+    public TilskuddFartoyResource getTilskuddFartoyCaseByExternalId(String externalId) throws NotTilskuddfartoyException, GetDocumentException, IllegalCaseNumberFormat {
         Case caseResult = caseService.getCaseByExternalId(externalId);
 
         // TODO Delegate this to tilskuddFartoyFactory
@@ -74,7 +74,7 @@ public class TilskuddfartoyService {
         throw new NotTilskuddfartoyException("Søknadsnummer " + externalId + " er ikke en Tilskuddfartøy sak");
     }
 
-    public TilskuddFartoyResource getTilskuddFartoyCaseBySystemId(String systemId) throws NotTilskuddfartoyException, GetTilskuddFartoyNotFoundException, GetTilskuddFartoyException, GetDocumentException, IllegalCaseNumberFormat {
+    public TilskuddFartoyResource getTilskuddFartoyCaseBySystemId(String systemId) throws NotTilskuddfartoyException, GetDocumentException, IllegalCaseNumberFormat {
         Case sakBySystemId = caseService.getCaseBySystemId(systemId);
 
         // TODO Delegate this to tilskuddFartoyFactory
@@ -84,7 +84,7 @@ public class TilskuddfartoyService {
         throw new NotTilskuddfartoyException(String.format("SystemId %s er ikke en Tilskuddfartøy sak", systemId));
     }
 
-    public List<TilskuddFartoyResource> searchTilskuddFartoyCaseByTitle(Map<String, String> query) throws GetTilskuddFartoyNotFoundException, GetTilskuddFartoyException, GetDocumentException, IllegalCaseNumberFormat {
+    public List<TilskuddFartoyResource> searchTilskuddFartoyCaseByTitle(Map<String, String> query) throws GetDocumentException, IllegalCaseNumberFormat {
 
         String title = String.format("%%%s%%", query.get("title"));
         String maxReturnedCases = query.getOrDefault("maxResult", "10");

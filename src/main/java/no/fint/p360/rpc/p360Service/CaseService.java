@@ -2,6 +2,7 @@ package no.fint.p360.rpc.p360Service;
 
 import lombok.extern.slf4j.Slf4j;
 import no.fint.p360.data.exception.CreateCaseException;
+import no.fint.p360.rpc.data.utilities.Constants;
 import no.p360.model.CaseService.*;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +32,7 @@ public class CaseService extends P360Service {
 
         ExternalId__1 id = new ExternalId__1();
         id.setId(externalId);
+        id.setType(Constants.EXTERNAL_ID_TYPE);
 
         GetCasesArgs getCasesArgs = CreateGetCaseArgsWithParameter();
         getCasesArgs.getParameter().setExternalId(id);

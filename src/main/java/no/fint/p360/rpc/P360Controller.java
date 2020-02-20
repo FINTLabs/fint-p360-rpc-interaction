@@ -1,6 +1,5 @@
 package no.fint.p360.rpc;
 
-import no.fint.model.administrasjon.arkiv.Partsinformasjon;
 import no.fint.model.felles.kompleksedatatyper.Identifikator;
 import no.fint.model.resource.Link;
 import no.fint.model.resource.administrasjon.arkiv.*;
@@ -101,6 +100,54 @@ public class P360Controller {
 
     @GetMapping("tilskuddFartoy/createTilskuddFartoyCase")
     public ResponseEntity<TilskuddFartoyResource> createTilskuddFartoyCase() throws CreateDocumentException, CreateCaseException, NotTilskuddfartoyException, GetTilskuddFartoyNotFoundException, GetDocumentException, IllegalCaseNumberFormat, GetTilskuddFartoyException {
+
+        return ResponseEntity.ok().body(tilskuddfartoyService.createTilskuddFartoyCase(createTestTilskuddFartoy()));
+    }
+
+    @GetMapping("tilskuddFartoy/getTilskuddFartoyCaseByExternalId/{id}")
+    public ResponseEntity<TilskuddFartoyResource> getTilskuddFartoyCaseByExternalId(@PathVariable String id) throws IllegalCaseNumberFormat, NotTilskuddfartoyException, GetDocumentException {
+        return ResponseEntity.ok().body(tilskuddfartoyService.getTilskuddFartoyCaseByExternalId(id));
+    }
+
+    @GetMapping("tilskuddFartoy/getTilskuddFartoyCaseByCaseNumber/{year}/{number}")
+    public ResponseEntity<TilskuddFartoyResource> getTilskuddFartoyCaseByCaseNumber(@PathVariable String year, @PathVariable String number) throws IllegalCaseNumberFormat, NotTilskuddfartoyException, GetDocumentException {
+        return ResponseEntity.ok().body(tilskuddfartoyService.getTilskuddFartoyCaseByCaseNumber(String.format("%s/%s", year, number)));
+    }
+
+    @GetMapping("tilskuddFartoy/getTilskuddFartoyCaseBySystemId/{id}")
+    public ResponseEntity<TilskuddFartoyResource> getTilskuddFartoyCaseBySystemId(@PathVariable String id) throws IllegalCaseNumberFormat, NotTilskuddfartoyException, GetDocumentException {
+        return ResponseEntity.ok().body(tilskuddfartoyService.getTilskuddFartoyCaseBySystemId(id));
+    }
+
+    @GetMapping("tilskuddFartoy/searchTilskuddFartoyCaseByTitle/")
+    public ResponseEntity<List<TilskuddFartoyResource>> searchTilskuddFartoyCaseByTitle(@RequestBody Map<String, String> queryParams) throws IllegalCaseNumberFormat, GetDocumentException{
+        return ResponseEntity.ok().body(tilskuddfartoyService.searchTilskuddFartoyCaseByTitle(queryParams));
+    }
+
+
+
+    @GetMapping("tilskuddFartoy/updateTilskuddFartoyCase/")
+    public ResponseEntity<TilskuddFartoyResource> updateTilskuddFartoyCase() throws CreateDocumentException, NotTilskuddfartoyException, GetTilskuddFartoyNotFoundException, GetDocumentException, IllegalCaseNumberFormat, GetTilskuddFartoyException {
+        TilskuddFartoyResource testTilskuddFartoy = createTestTilskuddFartoy();
+        JournalpostResource journalpost = new JournalpostResource();
+
+        journalpost.setAntallVedlegg(0L);
+        journalpost.setJournalAr("2020");
+        journalpost.setJournalPostnummer(2345L);
+        journalpost.setJournalSekvensnummer(2L);
+        journalpost.setBeskrivelse("FINT-Journalpost2");
+        journalpost.setTittel("FINT-Tittel Journalpost2");
+        journalpost.setOffentligTittel("FINT Offentlig tittel2");
+        journalpost.addJournalposttype(new Link("www.category.fint/112"));
+        journalpost.addJournalstatus(new Link("www.journalstatus.fint/J"));
+
+
+        testTilskuddFartoy.getJournalpost().add(journalpost);
+
+        return ResponseEntity.ok().body(tilskuddfartoyService.updateTilskuddFartoyCase("20/00053",testTilskuddFartoy));
+    }
+
+    public TilskuddFartoyResource createTestTilskuddFartoy(){
         TilskuddFartoyResource tilskuddFartoyResource = new TilskuddFartoyResource();
         tilskuddFartoyResource.setFartoyNavn("FINT fartoy");
         tilskuddFartoyResource.setKallesignal("FINT kallesignal");
@@ -161,7 +208,6 @@ public class P360Controller {
         journalposts.add(journalpost);
         tilskuddFartoyResource.setJournalpost(journalposts);
 
-
-        return ResponseEntity.ok().body(tilskuddfartoyService.createTilskuddFartoyCase(tilskuddFartoyResource));
+        return tilskuddFartoyResource;
     }
 }
