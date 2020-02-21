@@ -133,6 +133,9 @@ public class ContactService extends P360Service {
         if (queryParams.containsKey("maxResults")) {
             parameter.setMaxRows(Integer.valueOf(queryParams.get("maxResults")));
         }
+        if (!queryParams.containsKey("navn")) {
+            return Stream.empty();
+        }
         getPrivatePersonsArgs.setParameter(parameter);
 
         log.info("GetPrivatePersons query: {}", getPrivatePersonsArgs);
@@ -155,6 +158,9 @@ public class ContactService extends P360Service {
         }
         if (queryParams.containsKey("maxResults")) {
             parameter.setMaxRows(Integer.valueOf(queryParams.get("maxResults")));
+        }
+        if (!queryParams.containsKey("navn")) {
+            return Stream.empty();
         }
 
         getContactPersonsArgs.setParameter(parameter);

@@ -27,8 +27,4 @@ public class DokumentfilService {
             return cachedFileService.getFile(systemId);
         }
     }
-
-    /*public boolean health() {
-        return cachedFileService.health() && internalRepository.health();
-    }*/
 }

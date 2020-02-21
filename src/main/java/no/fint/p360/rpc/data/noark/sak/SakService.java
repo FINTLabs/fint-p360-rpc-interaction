@@ -34,8 +34,4 @@ public class SakService {
     public SakResource getSakBySystemId(String systemId) throws GetDocumentException, IllegalCaseNumberFormat {
         return sakFactory.toFintResource(caseService.getCaseBySystemId(systemId));
     }
-
-    //public boolean health() {
-    //    return caseService.ping() && sakFactory.health();
-    //}
 }

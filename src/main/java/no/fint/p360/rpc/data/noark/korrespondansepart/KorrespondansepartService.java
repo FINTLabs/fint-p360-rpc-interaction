@@ -87,8 +87,4 @@ public class KorrespondansepartService {
             throw new IllegalArgumentException("Invalid Korrespondansepart - neither fodselsnummer nor organisasjonsnummer is set.");
         }
     }
-
-    //public boolean health() {
-     //   return  contactService.ping();
-    //}
 }

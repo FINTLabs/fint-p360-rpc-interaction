@@ -124,8 +124,4 @@ public class CachedFileService extends CacheLoader<String, Path> implements Remo
 
         return saveFile(dokumentfilResource);
     }
-    /*
-    public boolean health() {
-        return fileService.ping();
-    }*/
 }
