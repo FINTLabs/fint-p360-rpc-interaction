@@ -21,7 +21,7 @@ public class FileService extends P360Service {
         parameter.setRecno(Integer.parseInt(recNo));
         parameter.setIncludeFileData(true);
         //Todo: remove commented out line and add vales to Adapterprops
-        //parameter.setADContextUser(props.getP360User());
+        parameter.setADContextUser(props.getP360User());
 
         getFileWithMetadataArgs.setParameter(parameter);
 
