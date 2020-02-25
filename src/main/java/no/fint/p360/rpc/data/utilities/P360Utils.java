@@ -5,12 +5,8 @@ import no.fint.model.resource.Link;
 import no.p360.model.CaseService.ExternalId;
 import org.apache.commons.lang3.StringUtils;
 
-import javax.xml.bind.JAXBElement;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.List;
 import java.util.function.Consumer;
-import java.util.function.Function;
 
 public enum P360Utils {
     ;
@@ -41,23 +37,23 @@ public enum P360Utils {
         return externalId;
     }
 
-/*
-    public static JAXBElement<ArrayOfClassCodeParameter> getArchiveCodes(String type, String code) {
-        ObjectFactory objectFactory = new ObjectFactory();
+    /*
+        public static JAXBElement<ArrayOfClassCodeParameter> getArchiveCodes(String type, String code) {
+            ObjectFactory objectFactory = new ObjectFactory();
 
-        ArrayOfClassCodeParameter arrayOfClassCodeParameter = objectFactory.createArrayOfClassCodeParameter();
-        ClassCodeParameter classCodeParameter = objectFactory.createClassCodeParameter();
+            ArrayOfClassCodeParameter arrayOfClassCodeParameter = objectFactory.createArrayOfClassCodeParameter();
+            ClassCodeParameter classCodeParameter = objectFactory.createClassCodeParameter();
 
-        classCodeParameter.setSort(1);
-        classCodeParameter.setIsManualText(Boolean.FALSE);
-        classCodeParameter.setArchiveCode(objectFactory.createClassCodeParameterArchiveCode(code));
-        classCodeParameter.setArchiveType(objectFactory.createClassCodeParameterArchiveType(type));
-        arrayOfClassCodeParameter.getClassCodeParameter().add(classCodeParameter);
+            classCodeParameter.setSort(1);
+            classCodeParameter.setIsManualText(Boolean.FALSE);
+            classCodeParameter.setArchiveCode(objectFactory.createClassCodeParameterArchiveCode(code));
+            classCodeParameter.setArchiveType(objectFactory.createClassCodeParameterArchiveType(type));
+            arrayOfClassCodeParameter.getClassCodeParameter().add(classCodeParameter);
 
-        return objectFactory.createCaseParameterBaseArchiveCodes(arrayOfClassCodeParameter);
-    }
-*/
-    public static <T> void applyParameterFromLink(List<Link> links,  Consumer<String> consumer) {
+            return objectFactory.createCaseParameterBaseArchiveCodes(arrayOfClassCodeParameter);
+        }
+    */
+    public static <T> void applyParameterFromLink(List<Link> links, Consumer<String> consumer) {
         links.stream()
                 .map(Link::getHref)
                 .filter(StringUtils::isNotBlank)

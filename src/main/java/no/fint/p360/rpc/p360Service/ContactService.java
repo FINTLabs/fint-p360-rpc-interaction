@@ -23,7 +23,7 @@ public class ContactService extends P360Service {
         getPrivatePersonsArgs.setParameter(parameter);
         GetPrivatePersonsResponse getPrivatePersonsResponse = call("ContactService/GetPrivatePersons", getPrivatePersonsArgs, GetPrivatePersonsResponse.class);
         log.info("PrivatePersonsResult: {}", getPrivatePersonsResponse);
-        if (getPrivatePersonsResponse.getSuccessful() && getPrivatePersonsResponse.getTotalPageCount() == 1){
+        if (getPrivatePersonsResponse.getSuccessful() && getPrivatePersonsResponse.getTotalPageCount() == 1) {
             return getPrivatePersonsResponse.getPrivatePersons().get(0);
         }
         return null;
@@ -81,6 +81,7 @@ public class ContactService extends P360Service {
 
         return null;
     }
+
     public Enterprise getEnterpriseByEnterpriseNumber(String enterpriseNumber) throws EnterpriseNotFound {
         GetEnterprisesArgs getEnterprisesArgs = new GetEnterprisesArgs();
         Parameter__1 parameter = new Parameter__1();
@@ -176,7 +177,7 @@ public class ContactService extends P360Service {
         return getContactPersonsResponse.getContactPersons().stream();
     }
 
-        public Integer createPrivatePerson(SynchronizePrivatePersonArgs privatePerson) throws CreateContactException {
+    public Integer createPrivatePerson(SynchronizePrivatePersonArgs privatePerson) throws CreateContactException {
         log.info("Create Private Person: {}", privatePerson);
         SynchronizePrivatePersonResponse synchronizePrivatePersonResponse = call("ContactService/SynchronizePrivatePerson", privatePerson, SynchronizePrivatePersonResponse.class);
         log.info("Private Person Result: {}", synchronizePrivatePersonResponse);

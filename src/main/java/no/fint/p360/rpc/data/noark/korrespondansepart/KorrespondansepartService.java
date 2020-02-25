@@ -45,7 +45,7 @@ public class KorrespondansepartService {
 
     public KorrespondansepartResource getKorrespondansepartByFodselsnummer(String fodselsnummer) throws KorrespondansepartNotFound {
         try {
-            return  korrespondansepartFactory.toFintResource(
+            return korrespondansepartFactory.toFintResource(
                     contactService.getPrivatePersonByPersonalIdNumber(fodselsnummer)
             );
         } catch (PrivatePersonNotFound e) {
@@ -79,7 +79,7 @@ public class KorrespondansepartService {
     public KorrespondansepartResource createKorrespondansepart(KorrespondansepartResource korrespondansepartResource) throws CreateContactException, CreateEnterpriseException {
         if (validIdentifikator(korrespondansepartResource.getFodselsnummer())) {
             int recNo = contactService.createPrivatePerson(korrespondansepartFactory.toPrivatePerson(korrespondansepartResource));
-            return  korrespondansepartFactory.toFintResource(contactService.getPrivatePersonByRecno(recNo));
+            return korrespondansepartFactory.toFintResource(contactService.getPrivatePersonByRecno(recNo));
         } else if (validIdentifikator(korrespondansepartResource.getOrganisasjonsnummer())) {
             int recNo = contactService.createEnterprise(korrespondansepartFactory.toEnterprise(korrespondansepartResource));
             return korrespondansepartFactory.toFintResource(contactService.getEnterpriseByRecno(recNo));

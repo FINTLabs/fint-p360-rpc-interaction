@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-public class DocumentService extends P360Service{
+public class DocumentService extends P360Service {
 
     public void createDocument(CreateDocumentArgs createDocumentArgs) throws CreateDocumentException {
         log.info("Create Document: {}", createDocumentArgs);
@@ -33,7 +33,7 @@ public class DocumentService extends P360Service{
         GetDocumentsResponse getDocumentsResponse = call("DocumentService/GetDocuments", getDocumentsArgs, GetDocumentsResponse.class);
 
         log.info("DocumentsResult: {}", getDocumentsResponse);
-        if (getDocumentsResponse.getSuccessful() && getDocumentsResponse.getDocuments().size()== 1) {
+        if (getDocumentsResponse.getSuccessful() && getDocumentsResponse.getDocuments().size() == 1) {
             return getDocumentsResponse.getDocuments().get(0);
         }
         if (getDocumentsResponse.getTotalPageCount() != 1) {

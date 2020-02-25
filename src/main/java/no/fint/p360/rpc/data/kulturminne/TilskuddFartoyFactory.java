@@ -14,7 +14,6 @@ import no.fint.p360.data.exception.NoSuchTitleDimension;
 import no.fint.p360.data.exception.UnableToParseTitle;
 import no.fint.p360.rpc.data.noark.common.NoarkFactory;
 import no.fint.p360.rpc.data.noark.journalpost.JournalpostFactory;
-import no.fint.p360.rpc.data.noark.korrespondansepart.KorrespondansepartFactory;
 import no.fint.p360.rpc.data.utilities.FintUtils;
 import no.fint.p360.rpc.data.utilities.NOARKUtils;
 import no.fint.p360.rpc.data.utilities.P360Utils;
@@ -25,7 +24,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -123,7 +121,6 @@ public class TilskuddFartoyFactory {
         //createCaseParameter.setRemarks();
         //createCaseParameter.setStartDate();
         //createCaseParameter.setUnofficialTitle();
-
 
 
         List<Contact> contacts = new ArrayList<>();

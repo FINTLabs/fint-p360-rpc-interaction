@@ -1,11 +1,6 @@
 package no.fint.p360.rpc.data.utilities;
 
-import no.fint.p360.AdapterProps;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import javax.xml.ws.BindingProvider;
-import java.util.Map;
 
 @Component
 public class RequestUtilities {

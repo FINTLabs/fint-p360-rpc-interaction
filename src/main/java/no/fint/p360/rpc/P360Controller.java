@@ -153,7 +153,7 @@ public class P360Controller {
     }
 
     @GetMapping("tilskuddFartoy/searchTilskuddFartoyCaseByTitle/")
-    public ResponseEntity<List<TilskuddFartoyResource>> searchTilskuddFartoyCaseByTitle(@RequestBody Map<String, String> queryParams) throws IllegalCaseNumberFormat, GetDocumentException{
+    public ResponseEntity<List<TilskuddFartoyResource>> searchTilskuddFartoyCaseByTitle(@RequestBody Map<String, String> queryParams) throws IllegalCaseNumberFormat, GetDocumentException {
         return ResponseEntity.ok().body(tilskuddfartoyService.searchTilskuddFartoyCaseByTitle(queryParams));
     }
 
@@ -174,10 +174,10 @@ public class P360Controller {
 
         testTilskuddFartoy.getJournalpost().add(journalpost);
 
-        return ResponseEntity.ok().body(tilskuddfartoyService.updateTilskuddFartoyCase("20/00053",testTilskuddFartoy));
+        return ResponseEntity.ok().body(tilskuddfartoyService.updateTilskuddFartoyCase("20/00053", testTilskuddFartoy));
     }
 
-    public TilskuddFartoyResource createTestTilskuddFartoy(){
+    public TilskuddFartoyResource createTestTilskuddFartoy() {
         TilskuddFartoyResource tilskuddFartoyResource = new TilskuddFartoyResource();
         tilskuddFartoyResource.setFartoyNavn("FINT fartoy");
         tilskuddFartoyResource.setKallesignal("FINT kallesignal");

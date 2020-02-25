@@ -6,7 +6,6 @@ import no.fint.model.resource.Link;
 import no.fint.model.resource.administrasjon.arkiv.SakResource;
 import no.fint.p360.data.exception.GetDocumentException;
 import no.fint.p360.data.exception.IllegalCaseNumberFormat;
-//import no.fint.p360.data.noark.common.NoarkFactory;
 import no.fint.p360.rpc.data.noark.common.NoarkFactory;
 import no.fint.p360.rpc.data.utilities.NOARKUtils;
 import no.p360.model.CaseService.Case;

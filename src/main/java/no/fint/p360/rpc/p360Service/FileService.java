@@ -3,7 +3,10 @@ package no.fint.p360.rpc.p360Service;
 import lombok.extern.slf4j.Slf4j;
 import no.fint.p360.AdapterProps;
 import no.fint.p360.data.exception.FileNotFound;
-import no.p360.model.FileService.*;
+import no.p360.model.FileService.File;
+import no.p360.model.FileService.GetFileWithMetadataArgs;
+import no.p360.model.FileService.GetFileWithMetadataResponse;
+import no.p360.model.FileService.Parameter__3;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

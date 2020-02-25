@@ -10,7 +10,6 @@ import no.fint.model.resource.administrasjon.arkiv.*;
 import no.fint.p360.rpc.data.noark.dokument.DokumentbeskrivelseFactory;
 import no.fint.p360.rpc.data.utilities.FintUtils;
 import no.fint.p360.rpc.repository.KodeverkRepository;
-import no.p360.model.DocumentService.Remark;
 import no.p360.model.DocumentService.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

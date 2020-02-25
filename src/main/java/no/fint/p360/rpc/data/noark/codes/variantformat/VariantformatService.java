@@ -24,5 +24,4 @@ public class VariantformatService {
         return supportService.getCodeTableRowResultStream(versionFormatTable)
                 .map(BegrepMapper.mapValue(VariantformatResource::new));
     }
-
 }

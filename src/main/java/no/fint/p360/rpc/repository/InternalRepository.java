@@ -3,7 +3,6 @@ package no.fint.p360.rpc.repository;
 import no.fint.event.model.Event;
 import no.fint.model.resource.FintLinks;
 import no.fint.model.resource.administrasjon.arkiv.DokumentfilResource;
-import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.time.LocalDateTime;

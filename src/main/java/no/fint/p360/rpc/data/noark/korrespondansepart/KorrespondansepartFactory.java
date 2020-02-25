@@ -77,7 +77,7 @@ public class KorrespondansepartFactory {
         parameter.setFirstName(personnavn.getFornavn());
         parameter.setLastName(personnavn.getEtternavn());
         parameter.setPersonalIdNumber(
-                        korrespondansepartResource.getFodselsnummer().getIdentifikatorverdi());
+                korrespondansepartResource.getFodselsnummer().getIdentifikatorverdi());
 
         ofNullable(korrespondansepartResource.getKontaktinformasjon())
                 .map(Kontaktinformasjon::getEpostadresse)
@@ -122,7 +122,7 @@ public class KorrespondansepartFactory {
         return synchronizeEnterpriseArgs;
     }
 
-    private PrivateAddress__3 createAddress(AdresseResource adresse, PrivateAddress__3 address ) {
+    private PrivateAddress__3 createAddress(AdresseResource adresse, PrivateAddress__3 address) {
         address.setCountry("NOR");
         ofNullable(adresse.getAdresselinje())
                 .map(l -> l.get(0))

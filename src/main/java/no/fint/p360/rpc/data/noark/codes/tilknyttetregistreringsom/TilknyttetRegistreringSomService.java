@@ -24,5 +24,4 @@ public class TilknyttetRegistreringSomService {
         return supportService.getCodeTableRowResultStream(documentRelationTable)
                 .map(BegrepMapper.mapValue(TilknyttetRegistreringSomResource::new));
     }
-
 }

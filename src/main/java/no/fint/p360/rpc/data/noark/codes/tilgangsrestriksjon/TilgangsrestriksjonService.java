@@ -23,5 +23,4 @@ public class TilgangsrestriksjonService {
         return supportService.getCodeTableRowResultStream(tableName)
                 .map(BegrepMapper.mapValue(TilgangsrestriksjonResource::new));
     }
-
 }

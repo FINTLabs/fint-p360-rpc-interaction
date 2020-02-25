@@ -77,6 +77,7 @@ public enum FintUtils {
         postAddress.setZipCode(address.getZipCode());
         return createAddressResource(postAddress);
     }
+
     private static AdresseResource createAdresseResource(PostAddress__1 address) {
         PostAddress postAddress = new PostAddress();
         postAddress.setStreetAddress(address.getStreetAddress());
@@ -85,7 +86,7 @@ public enum FintUtils {
         return createAddressResource(postAddress);
     }
 
-    private static AdresseResource createAddressResource(PostAddress address){
+    private static AdresseResource createAddressResource(PostAddress address) {
         AdresseResource adresseResource = new AdresseResource();
         adresseResource.setAdresselinje(Collections.singletonList(address.getStreetAddress()));
         adresseResource.setPoststed(address.getZipPlace());

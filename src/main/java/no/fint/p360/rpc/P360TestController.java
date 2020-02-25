@@ -93,6 +93,7 @@ public class P360TestController {
 
         return ResponseEntity.ok().body(documentService.getDocumentBySystemId(systemid));
     }
+
     @GetMapping("document/create")
     public void createDocument(@RequestBody CreateDocumentArgs createDocumentArgs) throws CreateDocumentException {
 
@@ -100,7 +101,7 @@ public class P360TestController {
     }
 
     @GetMapping("contact/getPrivatePersonByRecno/{recno}")
-    public ResponseEntity<PrivatePerson> getPrivatePersonByRecno(@PathVariable int recno){
+    public ResponseEntity<PrivatePerson> getPrivatePersonByRecno(@PathVariable int recno) {
         return ResponseEntity.ok(contactService.getPrivatePersonByRecno(recno));
     }
 
@@ -123,44 +124,49 @@ public class P360TestController {
     public ResponseEntity<Enterprise> getEnterpriseByEnterpriseNumber(@PathVariable String enterpriseNumber) throws EnterpriseNotFound {
         return ResponseEntity.ok(contactService.getEnterpriseByEnterpriseNumber(enterpriseNumber));
     }
+
     @GetMapping("contact/searchEnterprise")
-    public ResponseEntity<Stream<Enterprise>> searchEnterprise(@RequestBody Map<String, String> map){
+    public ResponseEntity<Stream<Enterprise>> searchEnterprise(@RequestBody Map<String, String> map) {
         return ResponseEntity.ok(contactService.searchEnterprise(map));
     }
 
     @GetMapping("contact/searchPrivatePerson")
-    public ResponseEntity<Stream<PrivatePerson>> searchPrivatePerson(@RequestBody Map<String, String> map){
+    public ResponseEntity<Stream<PrivatePerson>> searchPrivatePerson(@RequestBody Map<String, String> map) {
         return ResponseEntity.ok(contactService.searchPrivatePerson(map));
     }
+
     @GetMapping("contact/searchContactPerson")
-    public ResponseEntity<Stream<ContactPerson>> searchContactPerson(@RequestBody Map<String, String> map){
+    public ResponseEntity<Stream<ContactPerson>> searchContactPerson(@RequestBody Map<String, String> map) {
         return ResponseEntity.ok(contactService.searchContactPerson(map));
     }
+
     @PostMapping("contact/createPrivatePerson")
     public ResponseEntity<Integer> createPrivatePerson(@RequestBody SynchronizePrivatePersonArgs synchronizePrivatePersonArgs) throws CreateContactException {
         return ResponseEntity.ok(contactService.createPrivatePerson(synchronizePrivatePersonArgs));
     }
+
     @PostMapping("contact/createEnterprise")
     public ResponseEntity<Integer> createEnterprise(@RequestBody SynchronizeEnterpriseArgs synchronizeEnterpriseArgs) throws CreateEnterpriseException {
         return ResponseEntity.ok(contactService.createEnterprise(synchronizeEnterpriseArgs));
     }
 
     @GetMapping("support/getCodeTableRows")
-    public ResponseEntity<GetCodeTableRowsResponse> getCodeTableRows(@RequestBody CodeTableCode code){
+    public ResponseEntity<GetCodeTableRowsResponse> getCodeTableRows(@RequestBody CodeTableCode code) {
         return ResponseEntity.ok(supportService.getCodeTable(code.getCode()));
     }
 
     @GetMapping("support/getCodeTableRowsAsStream")
-    public ResponseEntity<Stream<CodeTableRow>> getCodeTableRowsAsStream(@RequestBody CodeTableCode code){
+    public ResponseEntity<Stream<CodeTableRow>> getCodeTableRowsAsStream(@RequestBody CodeTableCode code) {
         return ResponseEntity.ok(supportService.getCodeTableRowResultStream(code.getCode()));
     }
 
     @GetMapping("accessgroup/getAccessGroups")
-    public ResponseEntity<List<AccessGroup>> getAccessGroups(@RequestBody GetAccessGroupsArgs args){
+    public ResponseEntity<List<AccessGroup>> getAccessGroups(@RequestBody GetAccessGroupsArgs args) {
         return ResponseEntity.ok(accessGroupService.getAccessGroups(args));
     }
+
     @GetMapping("file/getFileByRecno/{recno}")
-    public ResponseEntity<File> getFileByRecno(@PathVariable String recno){
+    public ResponseEntity<File> getFileByRecno(@PathVariable String recno) {
         return ResponseEntity.ok(fileService.getFileByRecNo(recno));
     }
 }

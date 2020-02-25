@@ -24,5 +24,4 @@ public class SkjermingshjemmelService {
         return supportService.getCodeTableRowResultStream(tableName)
                 .map(BegrepMapper.mapValue(SkjermingshjemmelResource::new));
     }
-
 }
