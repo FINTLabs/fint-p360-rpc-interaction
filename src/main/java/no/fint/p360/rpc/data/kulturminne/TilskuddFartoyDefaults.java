@@ -130,12 +130,10 @@ public class TilskuddFartoyDefaults {
 
         List<ArchiveCode> archiveCodes = new ArrayList<>();
         ArchiveCode archiveCode = new ArchiveCode();
-
         archiveCode.setArchiveType(properties.getKlassifikasjon());
         archiveCode.setArchiveCode(properties.getKlasse());
         archiveCode.setSort(1);
         archiveCode.setIsManualText(false);
-
         archiveCodes.add(archiveCode);
 
         parameter.setArchiveCodes(archiveCodes);
