@@ -54,13 +54,13 @@ public class P360Controller {
     private InternalFileRepository internalFileRepository;
 
     @GetMapping("sak/casenumber/{year}/{number}")
-    public ResponseEntity<SakResource> getSakByCaseNumber(@PathVariable String year, @PathVariable String number) throws GetDocumentException, IllegalCaseNumberFormat {
+    public ResponseEntity<SakResource> getSakByCaseNumber(@PathVariable String year, @PathVariable String number) throws GetDocumentException, IllegalCaseNumberFormat, GetTilskuddFartoyNotFoundException {
         String caseNumber = year + "/" + number;
         return ResponseEntity.ok().body(sakService.getSakByCaseNumber(caseNumber));
     }
 
     @GetMapping("sak/systemid/{systemId}")
-    public ResponseEntity<SakResource> getSakBySystemId(@PathVariable String systemId) throws IllegalCaseNumberFormat, GetDocumentException {
+    public ResponseEntity<SakResource> getSakBySystemId(@PathVariable String systemId) throws IllegalCaseNumberFormat, GetDocumentException, GetTilskuddFartoyNotFoundException {
         return ResponseEntity.ok().body(sakService.getSakBySystemId(systemId));
     }
 
@@ -138,17 +138,17 @@ public class P360Controller {
     }
 
     @GetMapping("tilskuddFartoy/getTilskuddFartoyCaseByExternalId/{id}")
-    public ResponseEntity<TilskuddFartoyResource> getTilskuddFartoyCaseByExternalId(@PathVariable String id) throws IllegalCaseNumberFormat, NotTilskuddfartoyException, GetDocumentException {
+    public ResponseEntity<TilskuddFartoyResource> getTilskuddFartoyCaseByExternalId(@PathVariable String id) throws IllegalCaseNumberFormat, NotTilskuddfartoyException, GetDocumentException, GetTilskuddFartoyNotFoundException {
         return ResponseEntity.ok().body(tilskuddfartoyService.getTilskuddFartoyCaseByExternalId(id));
     }
 
     @GetMapping("tilskuddFartoy/getTilskuddFartoyCaseByCaseNumber/{year}/{number}")
-    public ResponseEntity<TilskuddFartoyResource> getTilskuddFartoyCaseByCaseNumber(@PathVariable String year, @PathVariable String number) throws IllegalCaseNumberFormat, NotTilskuddfartoyException, GetDocumentException {
+    public ResponseEntity<TilskuddFartoyResource> getTilskuddFartoyCaseByCaseNumber(@PathVariable String year, @PathVariable String number) throws IllegalCaseNumberFormat, NotTilskuddfartoyException, GetDocumentException, GetTilskuddFartoyNotFoundException {
         return ResponseEntity.ok().body(tilskuddfartoyService.getTilskuddFartoyCaseByCaseNumber(String.format("%s/%s", year, number)));
     }
 
     @GetMapping("tilskuddFartoy/getTilskuddFartoyCaseBySystemId/{id}")
-    public ResponseEntity<TilskuddFartoyResource> getTilskuddFartoyCaseBySystemId(@PathVariable String id) throws IllegalCaseNumberFormat, NotTilskuddfartoyException, GetDocumentException {
+    public ResponseEntity<TilskuddFartoyResource> getTilskuddFartoyCaseBySystemId(@PathVariable String id) throws IllegalCaseNumberFormat, NotTilskuddfartoyException, GetDocumentException, GetTilskuddFartoyNotFoundException {
         return ResponseEntity.ok().body(tilskuddfartoyService.getTilskuddFartoyCaseBySystemId(id));
     }
 

@@ -2,6 +2,8 @@ package no.fint.p360.rpc.p360Service;
 
 import lombok.extern.slf4j.Slf4j;
 import no.fint.p360.data.exception.CreateCaseException;
+import no.fint.p360.data.exception.GetTilskuddFartoyException;
+import no.fint.p360.data.exception.GetTilskuddFartoyNotFoundException;
 import no.fint.p360.rpc.data.utilities.Constants;
 import no.p360.model.CaseService.*;
 import org.springframework.stereotype.Service;
@@ -12,7 +14,7 @@ import java.util.List;
 @Slf4j
 public class CaseService extends P360Service {
 
-    public Case getCaseByCaseNumber(String caseNumber) {
+    public Case getCaseByCaseNumber(String caseNumber) throws GetTilskuddFartoyNotFoundException {
 
         GetCasesArgs getCasesArgs = CreateGetCaseArgsWithParameter();
         getCasesArgs.getParameter().setCaseNumber(caseNumber);
@@ -20,7 +22,7 @@ public class CaseService extends P360Service {
         return getCase(getCasesArgs);
     }
 
-    public Case getCaseBySystemId(String systemId) {
+    public Case getCaseBySystemId(String systemId) throws GetTilskuddFartoyNotFoundException {
 
         GetCasesArgs getCasesArgs = CreateGetCaseArgsWithParameter();
         getCasesArgs.getParameter().setRecno(Integer.valueOf(systemId));
@@ -28,7 +30,7 @@ public class CaseService extends P360Service {
         return getCase(getCasesArgs);
     }
 
-    public Case getCaseByExternalId(String externalId) {
+    public Case getCaseByExternalId(String externalId) throws GetTilskuddFartoyNotFoundException {
 
         ExternalId__1 id = new ExternalId__1();
         id.setId(externalId);
@@ -51,13 +53,15 @@ public class CaseService extends P360Service {
         return getCases(getCasesArgs);
     }
 
-    public Case getCase(GetCasesArgs getCasesArgs) {
+    public Case getCase(GetCasesArgs getCasesArgs) throws GetTilskuddFartoyNotFoundException {
 
         List<Case> caseResult = getCases(getCasesArgs);
 
-        // TODO: Handle result is not 1 case
-
-        return caseResult.get(0);
+        if (caseResult.size() == 1) {
+            return caseResult.get(0);
+        } else{
+            throw new GetTilskuddFartoyNotFoundException("More than one case found");
+        }
     }
 
     public List<Case> getCases(GetCasesArgs getCasesArgs) {

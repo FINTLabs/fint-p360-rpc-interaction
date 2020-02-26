@@ -45,7 +45,7 @@ public class P360TestController {
     private FileService fileService;
 
     @GetMapping("case/casenumber/{year}/{number}")
-    public ResponseEntity<Case> getCaseByCaseNumber(@PathVariable String year, @PathVariable String number) {
+    public ResponseEntity<Case> getCaseByCaseNumber(@PathVariable String year, @PathVariable String number) throws GetTilskuddFartoyNotFoundException {
 
         String caseNumber = year + "/" + number;
 
@@ -53,13 +53,13 @@ public class P360TestController {
     }
 
     @GetMapping("case/systemid/{systemId}")
-    public ResponseEntity<Case> getCaseBySystemId(@PathVariable String systemId) {
+    public ResponseEntity<Case> getCaseBySystemId(@PathVariable String systemId) throws GetTilskuddFartoyNotFoundException {
 
         return ResponseEntity.ok().body(caseService.getCaseBySystemId(systemId));
     }
 
     @GetMapping("case/externalid/{externalId}")
-    public ResponseEntity<Case> getCaseByExternalId(@PathVariable String externalId) {
+    public ResponseEntity<Case> getCaseByExternalId(@PathVariable String externalId) throws GetTilskuddFartoyNotFoundException {
 
         return ResponseEntity.ok().body(caseService.getCaseByExternalId(externalId));
     }
@@ -71,7 +71,7 @@ public class P360TestController {
     }
 
     @GetMapping("getcase")
-    public ResponseEntity<Case> getCase(@RequestBody GetCasesArgs getCasesArgs) throws Exception {
+    public ResponseEntity<Case> getCase(@RequestBody GetCasesArgs getCasesArgs) throws GetTilskuddFartoyNotFoundException {
 
         return ResponseEntity.ok().body(caseService.getCase(getCasesArgs));
     }

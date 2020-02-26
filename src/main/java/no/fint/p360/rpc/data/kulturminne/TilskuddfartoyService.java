@@ -53,7 +53,7 @@ public class TilskuddfartoyService {
         return getTilskuddFartoyCaseByCaseNumber(caseNumber);
     }
 
-    public TilskuddFartoyResource getTilskuddFartoyCaseByCaseNumber(String caseNumber) throws NotTilskuddfartoyException, GetDocumentException, IllegalCaseNumberFormat {
+    public TilskuddFartoyResource getTilskuddFartoyCaseByCaseNumber(String caseNumber) throws NotTilskuddfartoyException, GetDocumentException, IllegalCaseNumberFormat, GetTilskuddFartoyNotFoundException {
         Case caseByCaseNumber = caseService.getCaseByCaseNumber(caseNumber);
 
         if (isTilskuddFartoy(caseByCaseNumber)) {
@@ -63,7 +63,7 @@ public class TilskuddfartoyService {
         throw new NotTilskuddfartoyException(String.format("MappeId %s er ikke en Tilskuddfartøy sak", caseNumber));
     }
 
-    public TilskuddFartoyResource getTilskuddFartoyCaseByExternalId(String externalId) throws NotTilskuddfartoyException, GetDocumentException, IllegalCaseNumberFormat {
+    public TilskuddFartoyResource getTilskuddFartoyCaseByExternalId(String externalId) throws NotTilskuddfartoyException, GetDocumentException, IllegalCaseNumberFormat, GetTilskuddFartoyNotFoundException {
         Case caseResult = caseService.getCaseByExternalId(externalId);
 
         // TODO Delegate this to tilskuddFartoyFactory
@@ -74,7 +74,7 @@ public class TilskuddfartoyService {
         throw new NotTilskuddfartoyException("Søknadsnummer " + externalId + " er ikke en Tilskuddfartøy sak");
     }
 
-    public TilskuddFartoyResource getTilskuddFartoyCaseBySystemId(String systemId) throws NotTilskuddfartoyException, GetDocumentException, IllegalCaseNumberFormat {
+    public TilskuddFartoyResource getTilskuddFartoyCaseBySystemId(String systemId) throws NotTilskuddfartoyException, GetDocumentException, IllegalCaseNumberFormat, GetTilskuddFartoyNotFoundException {
         Case sakBySystemId = caseService.getCaseBySystemId(systemId);
 
         // TODO Delegate this to tilskuddFartoyFactory
@@ -90,7 +90,7 @@ public class TilskuddfartoyService {
         String maxReturnedCases = query.getOrDefault("maxResult", "10");
 
         return tilskuddFartoyFactory.toFintResourceList(
-                caseService.getCasesByTitle(title, maxReturnedCases)
+                caseService.getCasesByTitle(title, query.getOrDefault(maxReturnedCases, "10"))
                         .stream()
                         .filter(this::isTilskuddFartoy)
                         .collect(Collectors.toList())

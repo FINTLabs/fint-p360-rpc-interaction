@@ -2,6 +2,7 @@ package no.fint.p360.rpc.data.noark.sak;
 
 import no.fint.model.resource.administrasjon.arkiv.SakResource;
 import no.fint.p360.data.exception.GetDocumentException;
+import no.fint.p360.data.exception.GetTilskuddFartoyNotFoundException;
 import no.fint.p360.data.exception.IllegalCaseNumberFormat;
 import no.fint.p360.rpc.p360Service.CaseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +28,11 @@ public class SakService {
         return sakFactory.toFintResourceList(caseService.getCasesByTitle(title, maxReturnedCases));
     }
 
-    public SakResource getSakByCaseNumber(String caseNumber) throws GetDocumentException, IllegalCaseNumberFormat {
+    public SakResource getSakByCaseNumber(String caseNumber) throws GetDocumentException, IllegalCaseNumberFormat, GetTilskuddFartoyNotFoundException {
         return sakFactory.toFintResource(caseService.getCaseByCaseNumber(caseNumber));
     }
 
-    public SakResource getSakBySystemId(String systemId) throws GetDocumentException, IllegalCaseNumberFormat {
+    public SakResource getSakBySystemId(String systemId) throws GetDocumentException, IllegalCaseNumberFormat, GetTilskuddFartoyNotFoundException {
         return sakFactory.toFintResource(caseService.getCaseBySystemId(systemId));
     }
 }
