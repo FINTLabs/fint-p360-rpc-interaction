@@ -18,6 +18,7 @@ import no.fint.p360.rpc.data.utilities.FintUtils;
 import no.fint.p360.rpc.data.utilities.NOARKUtils;
 import no.fint.p360.rpc.data.utilities.P360Utils;
 import no.fint.p360.rpc.data.utilities.TitleParser;
+import no.fint.p360.rpc.service.TitleService;
 import no.p360.model.CaseService.*;
 import no.p360.model.DocumentService.CreateDocumentArgs;
 import org.apache.commons.lang3.StringUtils;
@@ -41,6 +42,9 @@ public class TilskuddFartoyFactory {
 
     @Autowired
     private TilskuddFartoyDefaults tilskuddFartoyDefaults;
+
+    @Autowired
+    TitleService titleService;
 
     public TilskuddFartoyResource toFintResource(Case caseResult) throws GetDocumentException, IllegalCaseNumberFormat {
 
@@ -84,9 +88,9 @@ public class TilskuddFartoyFactory {
 
         Parameter parameter = new Parameter();
 
+        parameter.setTitle(titleService.getTitle(tilskuddFartoy));
         tilskuddFartoyDefaults.applyDefaultsToCreateCaseParameter(parameter);
 
-        parameter.setTitle(TitleParser.getTitleString(tilskuddFartoy));
         parameter.setExternalId(P360Utils.getExternalIdParameter(tilskuddFartoy.getSoknadsnummer()));
 
         applyParameterFromLink(

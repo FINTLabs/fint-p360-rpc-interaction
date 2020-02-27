@@ -17,6 +17,7 @@ import no.fint.p360.rpc.data.utilities.FintUtils;
 import no.fint.p360.rpc.data.utilities.NOARKUtils;
 import no.fint.p360.rpc.p360Service.DocumentService;
 import no.fint.p360.rpc.repository.KodeverkRepository;
+import no.fint.p360.rpc.service.TitleService;
 import no.p360.model.CaseService.*;
 import no.p360.model.DocumentService.Document__1;
 import org.apache.commons.lang3.StringUtils;
@@ -41,6 +42,9 @@ public class NoarkFactory {
 
     @Autowired
     private JournalpostFactory journalpostFactory;
+
+    @Autowired
+    private TitleService titleService;
 
     @Autowired
     private PartFactory partFactory;
@@ -123,5 +127,6 @@ public class NoarkFactory {
                 .map(Identifikator::getIdentifikatorverdi)
                 .map(Link.apply(KlasseResource.class, "systemid"))
                 .forEach(saksmappeResource::addKlasse);
+        titleService.parseTitle(saksmappeResource, saksmappeResource.getTittel());
     }
 }

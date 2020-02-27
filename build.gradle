@@ -17,6 +17,10 @@ plugins {
 }
 
 apply plugin: 'jsonschema2pojo'
+apply plugin: 'java'
+apply plugin: 'groovy'
+apply plugin: 'maven'
+apply plugin: 'org.springframework.boot'
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
@@ -48,6 +52,8 @@ dependencies {
     compile('org.apache.tika:tika-core:1.23')
     compile('com.google.guava:guava:28.1-jre')
     compile('org.jooq:jool-java-8:0.9.14')
+    compile 'commons-beanutils:commons-beanutils:1.9.4'
+    compile 'org.apache.commons:commons-text:1.8'
 
     compile("no.fint:fint-arkiv-model-java:3.4.0-alpha-10")
 
@@ -58,6 +64,10 @@ dependencies {
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
+    testCompile('cglib:cglib-nodep:3.3.0')
+    testCompile('org.spockframework:spock-spring:1.1-groovy-2.4')
+    testCompile('org.spockframework:spock-core:1.1-groovy-2.4')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
 jsonSchema2Pojo {
